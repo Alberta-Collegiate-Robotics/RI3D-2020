@@ -14,6 +14,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Spark;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -49,11 +50,10 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Create motor objects
-    // TODO change to use real objects, dependent on robot probably
-    this.lbMotor = new SpeedController(Constants.lbMotorPort);    
-    this.lfMotor = new SpeedController(Constants.lfMotorPort);
-    this.rbMotor = new SpeedController(Constants.rbMotorPort);
-    this.rfMotor = new SpeedController(Constants.rfMotorPort);
+    this.lbMotor = new Spark(Constants.lbMotorPort);    
+    this.lfMotor = new Spark(Constants.lfMotorPort);
+    this.rbMotor = new Spark(Constants.rbMotorPort);
+    this.rfMotor = new Spark(Constants.rfMotorPort);
     
     // Initalize subsystems and commands
     this.exampleSubsystem = new ExampleSubsystem();
