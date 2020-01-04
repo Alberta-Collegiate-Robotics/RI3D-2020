@@ -7,13 +7,10 @@
 
 package frc.robot;
 
-<<<<<<< Updated upstream
-=======
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.commands.*;
 import frc.robot.subsystems.ExampleSubsystem;
 
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
@@ -38,8 +35,6 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-<<<<<<< Updated upstream
-=======
 
     // Create motor objects
     this.lbMotor = new Spark(Constants.lbMotorPort);    
@@ -64,7 +59,6 @@ public class RobotContainer {
     // Create/define default drive command
     this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
     
->>>>>>> Stashed changes
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -76,10 +70,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-<<<<<<< Updated upstream
-=======
     this.launchButton.whenHeld(new CommandUpperSystem(subsystem));
->>>>>>> Stashed changes
   }
 
 
