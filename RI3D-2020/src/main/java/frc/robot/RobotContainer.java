@@ -7,11 +7,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.SpeedController;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -20,17 +28,47 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+  private final DifferentialDriveTrain driveTrainSubsystem;
+  private final ExampleSubsystem exampleSubsystem;
+  private final ExampleCommand autoCommand;
 
-  private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
+  private final GenericHID mainController;
+  private final Button launchButton;
 
-
+  // Define motors TODO determine actual classes
+  private final SpeedController lbMotor;
+  private final SpeedController lfMotor;
+  private final SpeedController rbMotor;
+  private final SpeedController rfMotor;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
+    // Create motor objects
+    // TODO change to use real objects, dependent on robot probably
+    this.lbMotor = new SpeedController(Constants.lbMotorPort);    
+    this.lfMotor = new SpeedController(Constants.lfMotorPort);
+    this.rbMotor = new SpeedController(Constants.rbMotorPort);
+    this.rfMotor = new SpeedController(Constants.rfMotorPort);
+    
+    // Initalize subsystems and commands
+    this.exampleSubsystem = new ExampleSubsystem();
+    this.autoCommand = new ExampleCommand(exampleSubsystem);
+    this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
+
+    // Define IO devices
+    this.mainController = new XboxController(Constants.mainControllerPort);
+
+    // Define button objects
+    this.launchButton = new JoystickButton(this.mainController, Constants.launchButtonPort);
+
+    // Create/define default drive command
+    this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController), this.driveTrainSubsystem));
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -42,6 +80,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
   }
 
 

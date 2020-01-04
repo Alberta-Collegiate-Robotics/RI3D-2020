@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -73,6 +74,14 @@ public class DifferentialDriveTrain extends SubsystemBase {
      */
     public void arcadeDrive(double xSpeed, double zRotation) {
         this.drive.arcadeDrive(xSpeed, zRotation);
+    }
+
+    /**
+     * Automatically retrieves the controller's getX()/getY() and passes it to arcadeDrive
+     * @param controller A controller to provide x/y inputs
+     */
+    public void arcadeDrive(GenericHID controller) {
+        this.arcadeDrive(controller.getX(), controller.getY());
     }
 
     /**
