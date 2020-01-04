@@ -7,3 +7,5 @@ Link for Live Stream: https://www.twitch.tv/firstinspires?utm_referrer=https%3A%
 Link for WPILIB: https://github.com/wpilibsuite/allwpilib/releases
 
 Link for WPILIB Docs: https://docs.wpilib.org/en/latest/index.html
+
+Password for Encrypted Game Manual: R!$E2geTHeR#2020
