@@ -7,11 +7,9 @@
 
 package frc.robot;
 
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ActivateMotor;
 import frc.robot.commands.TogglePiston;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
@@ -104,13 +102,10 @@ public class RobotContainer {
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
-<<<<<<< Updated upstream
-		this.exampleSubsystem = new ExampleSubsystem();
+		//this.exampleSubsystem = new ExampleSubsystem();
 
-		this.autoCommand = new ExampleCommand(exampleSubsystem);
+		//this.autoCommand = new ExampleCommand(exampleSubsystem);
 
-=======
->>>>>>> Stashed changes
 		// Define IO devices
 		this.mainController = new XboxController(Constants.mainControllerPort);
 		// Define button objects
