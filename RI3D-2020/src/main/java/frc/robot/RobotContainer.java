@@ -16,6 +16,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import frc.robot.subsystems.*; //We're going to use all the subsystems anyways
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -25,11 +33,23 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+  private final ExampleSubsystem exampleSubsystem;
+  private final ExampleCommand autoCommand;
 
-  private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
+  private final SpeedController lbMotor;  
+  private final SpeedController lfMotor;
+  private final SpeedController rbMotor;
+  private final SpeedController rfMotor;
 
+  private final SpeedController shooterMotor;
+  private final SpeedController intakeMotor;
 
+  private final DifferentialDriveTrain driveTrainSubsystem;
+  private final MotorSubsystem shooterSubsystem;
+  private final MotorSubsystem intakeSubsystem;
+
+  private final GenericHID mainController;
+  private final Button launchButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -41,6 +61,9 @@ public class RobotContainer {
     this.lfMotor = new Spark(Constants.lfMotorPort);
     this.rbMotor = new Spark(Constants.rbMotorPort);
     this.rfMotor = new Spark(Constants.rfMotorPort);
+
+    this.shooterMotor = new Spark(Constants.shooterMotorPort);
+    this.intakeMotor = new Spark(Constants.intakeMotorPort);
     
     // Initalize subsystems and commands
     this.exampleSubsystem = new ExampleSubsystem();
@@ -70,12 +93,12 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    this.launchButton.whenHeld(new CommandUpperSystem(subsystem));
+    this.launchButton.whenHeld(new CommandUpperSystem(this.shooterSubsystem));
   }
-
+    
 
   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
+   * Use this to pass he autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
