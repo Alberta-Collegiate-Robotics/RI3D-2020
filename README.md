@@ -13,13 +13,14 @@ Password for Encrypted Game Manual: R!$E2geTHeR#2020
 Designs:
 Robot A (No-Climb):
 - Two motors shooting system.
-- One motor intake system.
+- One motor Feeder system.
+- One motor Hooper.
 - 4 Motors base drive
 - Shooting Auto?
 
 
 Robot B (Climb):
-- Two motors elevator system
+- Four motors elevator system
 - Control Panel Spinning System
 - 4 Motors base drive.
 - Drive Straight for Auto?
