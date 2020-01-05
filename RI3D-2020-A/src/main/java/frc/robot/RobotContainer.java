@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Spark; //Unused Import
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -50,8 +50,8 @@ public class RobotContainer {
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 
-	private final SpeedController elevatorUp;
-	private final SpeedController elevatorDown;
+	// private final SpeedController elevatorUp;
+	// private final SpeedController elevatorDown;
 
 	private final SpeedController controlPanelMotor;
 
@@ -59,8 +59,8 @@ public class RobotContainer {
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
 	private final MotorSubsystem controlPanelSubsystem;
-	private final MotorSubsystem elevatorUpSubsystem;
-	private final MotorSubsystem elevatorDownSubsystem;
+	// private final MotorSubsystem elevatorUpSubsystem;
+	// private final MotorSubsystem elevatorDownSubsystem;
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
@@ -79,16 +79,16 @@ public class RobotContainer {
 		this.shooterMotor = new WPI_TalonSRX(Constants.shooterMotorPort);
 		this.intakeMotor = new WPI_TalonSRX(Constants.intakeMotorPort);
 
-		this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
-		this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
+		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
+		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
 
 		this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
 		
-		this.elevatorUpSubsystem = new MotorSubsystem(elevatorUp);
-		this.elevatorDownSubsystem = new MotorSubsystem(elevatorDown);
+		// this.elevatorUpSubsystem = new MotorSubsystem(elevatorUp);
+		// this.elevatorDownSubsystem = new MotorSubsystem(elevatorDown);
 		
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
