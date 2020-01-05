@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Spark;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -58,13 +59,13 @@ public class RobotContainer {
 	public RobotContainer() {
 
 		// Create motor objects
-		this.lbMotor = new Spark(Constants.lbMotorPort);
-		this.lfMotor = new Spark(Constants.lfMotorPort);
-		this.rbMotor = new Spark(Constants.rbMotorPort);
-		this.rfMotor = new Spark(Constants.rfMotorPort);
+		this.lbMotor = new VictorSP(Constants.lbMotorPort);
+		this.lfMotor = new VictorSP(Constants.lfMotorPort);
+		this.rbMotor = new VictorSP(Constants.rbMotorPort);
+		this.rfMotor = new VictorSP(Constants.rfMotorPort);
 
-		this.shooterMotor = new Spark(Constants.shooterMotorPort);
-		this.intakeMotor = new Spark(Constants.intakeMotorPort);
+		this.shooterMotor = new WPI_TalonSRX(Constants.shooterMotorPort);
+		this.intakeMotor = new WPI_TalonSRX(Constants.intakeMotorPort);
 
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
