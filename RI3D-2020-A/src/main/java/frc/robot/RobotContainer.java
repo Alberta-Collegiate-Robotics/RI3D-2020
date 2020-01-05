@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.SpeedController;
-//import edu.wpi.first.wpilibj.Spark; //Unused Import
+import edu.wpi.first.wpilibj.Spark; //Unused Import
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -50,16 +50,20 @@ public class RobotContainer {
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 
-	private final Solenoid heightSolenoid;
+	private final SpeedController elevatorUp;
+	private final SpeedController elevatorDown;
+
+	private final SpeedController controlPanelMotor;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
-	private final PistonSubsystem heightSubsystem;
+	private final MotorSubsystem controlPanelSubsystem;
+	private final MotorSubsystem elevatorSubsystem;
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
-	private final Button togglePistonButton;
+	private final Button controlPanelButton;
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -74,7 +78,10 @@ public class RobotContainer {
 		this.shooterMotor = new WPI_TalonSRX(Constants.shooterMotorPort);
 		this.intakeMotor = new WPI_TalonSRX(Constants.intakeMotorPort);
 
-		this.heightSolenoid = new Solenoid(Constants.heightSolenoidPort);
+		this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
+		this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
+
+		this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
@@ -84,7 +91,7 @@ public class RobotContainer {
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
 		this.intakeSubsystem = new MotorSubsystem(this.intakeMotor);
 
-		this.heightSubsystem = new PistonSubsystem(this.heightSolenoid);
+		this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
@@ -92,13 +99,13 @@ public class RobotContainer {
 		this.mainController = new XboxController(Constants.mainControllerPort);
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
-		this.togglePistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+		this.controlPanelButton = new JoystickButton(this.mainController, Constants.controlPanelButtonPort);
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
 		// Set the intake to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
-
+		
 		// TODO attach command to height subsystem
 
 		// Configure the button bindings
@@ -113,7 +120,7 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
-		this.togglePistonButton.whenPressed(new TogglePiston(heightSubsystem));
+		this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
 

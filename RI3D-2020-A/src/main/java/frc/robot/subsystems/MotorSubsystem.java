@@ -28,7 +28,7 @@ public class MotorSubsystem extends SubsystemBase {
 	}
 
 	/**
-	 * Wraps the internal speed controller
+	 * Sets the speed of the motor controller
 	 * @param speed double between [-1, 1]
 	 */
 	public void setSpeed(double speed) {
