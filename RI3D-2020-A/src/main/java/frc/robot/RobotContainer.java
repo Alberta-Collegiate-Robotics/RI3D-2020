@@ -9,12 +9,12 @@ package frc.robot;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ActivateMotor;
-import frc.robot.commands.TogglePiston;
+//import frc.robot.commands.TogglePiston;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
-import frc.robot.subsystems.PistonSubsystem;
+//import frc.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.Spark; //Unused Import
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -59,7 +59,8 @@ public class RobotContainer {
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
 	private final MotorSubsystem controlPanelSubsystem;
-	private final MotorSubsystem elevatorSubsystem;
+	private final MotorSubsystem elevatorUpSubsystem;
+	private final MotorSubsystem elevatorDownSubsystem;
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
@@ -86,6 +87,9 @@ public class RobotContainer {
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
 		
+		this.elevatorUpSubsystem = new MotorSubsystem(elevatorUp);
+		this.elevatorDownSubsystem = new MotorSubsystem(elevatorDown);
+		
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
@@ -105,7 +109,7 @@ public class RobotContainer {
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
 		// Set the intake to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
-		
+
 		// TODO attach command to height subsystem
 
 		// Configure the button bindings
