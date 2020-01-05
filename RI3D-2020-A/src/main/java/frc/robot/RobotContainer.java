@@ -69,11 +69,13 @@ public class RobotContainer {
 
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
-		this.autoCommand = new ExampleCommand(exampleSubsystem);
+		
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
 		this.shooterSubsystem = new MotorSubsystem(shooterMotor);
 		this.intakeSubsystem = new MotorSubsystem(intakeMotor);
+
+		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
 		// Define IO devices
 		this.mainController = new XboxController(Constants.mainControllerPort);
@@ -83,10 +85,12 @@ public class RobotContainer {
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
+		
+		// Set the intake to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
 
 		// Configure the button bindings
-		configureButtonBindings();
+		this.configureButtonBindings();
 	}
 
 	/**
