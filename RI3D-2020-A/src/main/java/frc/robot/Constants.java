@@ -32,10 +32,14 @@ public final class Constants {
     public static final int shooterMotorPort = -1;
     public static final int intakeMotorPort = -1;
 
-    public static final int controlPanelPort = 0;
+    public static final int hopperMotorPort = -1;
+
+    //public static final int controlPanelPort = 0;
 
     public static final double shooterMotorSpeed = 1.0;
     public static final double intakeMotorSpeed = 1.0;
 
-    public static final double controlPanelSpeed = 1.0;
+    public static final double hopperMotorSpeed = 0.5;
+
+    //public static final double controlPanelSpeed = 1.0;
 }

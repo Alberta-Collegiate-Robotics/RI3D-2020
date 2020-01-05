@@ -49,6 +49,8 @@ public class RobotContainer {
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 
+	private final SpeedController hopperMotor;
+
 	// private final SpeedController elevatorUp;
 	// private final SpeedController elevatorDown;
 
@@ -57,6 +59,7 @@ public class RobotContainer {
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
+	private final MotorSubsystem hopperSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
 	// private final MotorSubsystem elevatorUpSubsystem;
 	// private final MotorSubsystem elevatorDownSubsystem;
@@ -78,6 +81,8 @@ public class RobotContainer {
 		this.shooterMotor = new VictorSP(Constants.shooterMotorPort);
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 
+		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
+
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
 		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
 
@@ -94,6 +99,8 @@ public class RobotContainer {
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
 		this.intakeSubsystem = new MotorSubsystem(this.intakeMotor);
 
+		this.hopperSubsystem = new MotorSubsystem(this.hopperMotor);
+
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
@@ -106,8 +113,9 @@ public class RobotContainer {
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
-		// Set the intake to be constantly running
+		// Set the intake and hopper to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
+		this.hopperSubsystem.setDefaultCommand(new ActivateMotor(this.hopperSubsystem, Constants.hopperMotorSpeed));
 
 		// TODO attach command to height subsystem
 
