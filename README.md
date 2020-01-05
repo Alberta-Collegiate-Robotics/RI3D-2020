@@ -9,3 +9,11 @@ Link for WPILIB: https://github.com/wpilibsuite/allwpilib/releases
 Link for WPILIB Docs: https://docs.wpilib.org/en/latest/index.html
 
 Password for Encrypted Game Manual: R!$E2geTHeR#2020
+
+Designs:
+Robot A (No-Climb):
+
+
+Robot B (Climb):
+- Two motors elevator system
+- Two? motors shooter/intake system
