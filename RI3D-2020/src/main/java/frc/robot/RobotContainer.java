@@ -9,16 +9,17 @@ package frc.robot;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ActivateMotor;
-//import frc.robot.commands.TogglePiston;
+import frc.robot.commands.TogglePiston;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
-//import frc.robot.subsystems.PistonSubsystem;
+import frc.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -48,24 +49,28 @@ public class RobotContainer {
 
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
-
 	private final SpeedController hopperMotor;
+
+	private final Solenoid piston;
+	//private final SpeedController controlPanelMotor;
 
 	// private final SpeedController elevatorUp;
 	// private final SpeedController elevatorDown;
-
-	//private final SpeedController controlPanelMotor;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
 	private final MotorSubsystem hopperSubsystem;
+
+	private final PistonSubsystem pistonSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
+
 	// private final MotorSubsystem elevatorUpSubsystem;
 	// private final MotorSubsystem elevatorDownSubsystem;
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
+	private final Button pistonButton;
 	//private final Button controlPanelButton;
 
 	/**
@@ -82,6 +87,7 @@ public class RobotContainer {
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
+		this.piston = new Solenoid(Constants.pistonPort);
 
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
 		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
@@ -89,11 +95,6 @@ public class RobotContainer {
 		//this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
 		// Initalize subsystems and commands
-		this.exampleSubsystem = new ExampleSubsystem();
-		
-		// this.elevatorUpSubsystem = new MotorSubsystem(elevatorUp);
-		// this.elevatorDownSubsystem = new MotorSubsystem(elevatorDown);
-		
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
@@ -101,6 +102,7 @@ public class RobotContainer {
 
 		this.hopperSubsystem = new MotorSubsystem(this.hopperMotor);
 
+		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
@@ -131,6 +133,7 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
+		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
