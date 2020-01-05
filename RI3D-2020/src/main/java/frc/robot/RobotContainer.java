@@ -14,7 +14,6 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
@@ -42,14 +41,14 @@ public class RobotContainer {
   private final SpeedController rfMotor;
 
   private final SpeedController shooterMotor;
-  private final SpeedController intakeMotor;
+  //private final SpeedController intakeMotor;
 
   private final DifferentialDriveTrain driveTrainSubsystem;
   private final MotorSubsystem shooterSubsystem;
-  private final MotorSubsystem intakeSubsystem;
+  //private final MotorSubsystem intakeSubsystem;
 
   private final GenericHID mainController;
-  private final Button launchButton;
+  private final Button shooterButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -63,7 +62,7 @@ public class RobotContainer {
     this.rfMotor = new Spark(Constants.rfMotorPort);
 
     this.shooterMotor = new Spark(Constants.shooterMotorPort);
-    this.intakeMotor = new Spark(Constants.intakeMotorPort);
+    //this.intakeMotor = new Spark(Constants.intakeMotorPort);
     
     // Initalize subsystems and commands
     this.exampleSubsystem = new ExampleSubsystem();
@@ -71,13 +70,13 @@ public class RobotContainer {
     this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
     this.shooterSubsystem = new MotorSubsystem(shooterMotor);
-    this.intakeSubsystem = new MotorSubsystem(intakeMotor);
+    //this.intakeSubsystem = new MotorSubsystem(intakeMotor);
 
     // Define IO devices
     this.mainController = new XboxController(Constants.mainControllerPort);
 
     // Define button objects
-    this.launchButton = new JoystickButton(this.mainController, Constants.launchButtonPort);
+    this.shooterButton = new JoystickButton(this.mainController, Constants.launchButtonPort);
 
     // Create/define default drive command
     this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
@@ -93,7 +92,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    this.launchButton.whenHeld(new CommandUpperSystem(this.shooterSubsystem));
+    this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
   }
     
 

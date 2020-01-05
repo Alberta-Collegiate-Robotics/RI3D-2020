@@ -31,6 +31,7 @@ public class ExampleCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    subsystem.getClass(); //This removes a stupid warning
   }
 
   // Called every time the scheduler runs while the command is scheduled.
