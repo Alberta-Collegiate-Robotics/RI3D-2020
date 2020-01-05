@@ -60,12 +60,12 @@ public class RobotContainer {
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
+	private final Button togglePistonButton;
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
 	 */
 	public RobotContainer() {
-
 		// Create motor objects
 		this.lbMotor = new VictorSP(Constants.lbMotorPort);
 		this.lfMotor = new VictorSP(Constants.lfMotorPort);
@@ -93,6 +93,7 @@ public class RobotContainer {
 		this.mainController = new XboxController(Constants.mainControllerPort);
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
+		this.togglePistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
@@ -113,6 +114,7 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
+		this.togglePistonButton.whenPressed(new TogglePiston(heightSubsystem));
 	}
 
 

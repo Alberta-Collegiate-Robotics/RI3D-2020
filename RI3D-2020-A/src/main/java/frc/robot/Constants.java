@@ -22,6 +22,7 @@ public final class Constants {
 
     public static final int mainControllerPort = 0;
     public static final int shooterButtonPort = joystickTriggerButtonPort;
+    public static final int pistonButtonPort = -1;
 
     public static final int lbMotorPort = 0;
     public static final int lfMotorPort = 1;
