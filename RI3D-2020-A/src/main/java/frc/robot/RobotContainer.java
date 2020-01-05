@@ -76,7 +76,7 @@ public class RobotContainer {
     this.mainController = new XboxController(Constants.mainControllerPort);
 
     // Define button objects
-    this.shooterButton = new JoystickButton(this.mainController, Constants.launchButtonPort);
+    this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 
     // Create/define default drive command
     this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
