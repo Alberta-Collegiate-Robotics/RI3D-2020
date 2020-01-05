@@ -87,7 +87,7 @@ public class RobotContainer {
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
-		this.piston = new Solenoid(Constants.pistonPort);
+		this.piston = new Solenoid(Constants.pistonSolenoidPort);
 
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
 		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
@@ -105,12 +105,15 @@ public class RobotContainer {
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
+		this.exampleSubsystem = new ExampleSubsystem();
+
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
 		// Define IO devices
 		this.mainController = new XboxController(Constants.mainControllerPort);
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
+		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
 		//this.controlPanelButton = new JoystickButton(this.mainController, Constants.controlPanelButtonPort);
 
 		// Create/define default drive command
