@@ -7,25 +7,30 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.DifferentialDriveTrain;
-import frc.robot.commands.*;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ActivateMotor;
+import frc.robot.commands.TogglePiston;
+
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.DifferentialDriveTrain;
+import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.PistonSubsystem;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.subsystems.*; //We're going to use all the subsystems anyways
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -46,9 +51,12 @@ public class RobotContainer {
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 
+	private final Solenoid heightSolenoid;
+
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
+	private final PistonSubsystem heightSubsystem;
 
 	private final GenericHID mainController;
 	private final Button shooterButton;
@@ -67,27 +75,31 @@ public class RobotContainer {
 		this.shooterMotor = new WPI_TalonSRX(Constants.shooterMotorPort);
 		this.intakeMotor = new WPI_TalonSRX(Constants.intakeMotorPort);
 
+		this.heightSolenoid = new Solenoid(Constants.heightSolenoidPort);
+
 		// Initalize subsystems and commands
 		this.exampleSubsystem = new ExampleSubsystem();
 		
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
 
-		this.shooterSubsystem = new MotorSubsystem(shooterMotor);
-		this.intakeSubsystem = new MotorSubsystem(intakeMotor);
+		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
+		this.intakeSubsystem = new MotorSubsystem(this.intakeMotor);
+
+		this.heightSubsystem = new PistonSubsystem(this.heightSolenoid);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
 		// Define IO devices
 		this.mainController = new XboxController(Constants.mainControllerPort);
-
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
-		
 		// Set the intake to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
+
+		// TODO attach command to height subsystem
 
 		// Configure the button bindings
 		this.configureButtonBindings();

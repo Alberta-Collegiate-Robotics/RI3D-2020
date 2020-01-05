@@ -31,6 +31,8 @@ public final class Constants {
     public static final int shooterMotorPort = -1;
     public static final int intakeMotorPort = -1;
 
+    public static final int heightSolenoidPort = 0;
+
     public static final double shooterMotorSpeed = 1.0;
 
 
