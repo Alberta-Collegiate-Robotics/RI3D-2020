@@ -11,27 +11,27 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MotorSubsystem extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
+	/**
+	 * Creates a new ExampleSubsystem.
+	 */
 
-  private SpeedController motor;
+	private SpeedController motor;
 
-  public MotorSubsystem(SpeedController motor) {
-    // Reference motor
-    this.motor = motor;
-  }
+	public MotorSubsystem(SpeedController motor) {
+		// Reference motor
+		this.motor = motor;
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 
-  /**
-   * Wraps the internal speed controller
-   * @param speed double between [-1, 1]
-   */
-  public void setSpeed(double speed) {
-    this.motor.set(speed);
-  }
+	/**
+	 * Wraps the internal speed controller
+	 * @param speed double between [-1, 1]
+	 */
+	public void setSpeed(double speed) {
+		this.motor.set(speed);
+	}
 }

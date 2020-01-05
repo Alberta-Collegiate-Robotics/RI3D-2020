@@ -33,4 +33,6 @@ public final class Constants {
 
     public static final double shooterMotorSpeed = 1.0;
 
+
+    public static final double intakeMotorSpeed = 1.0;
 }
