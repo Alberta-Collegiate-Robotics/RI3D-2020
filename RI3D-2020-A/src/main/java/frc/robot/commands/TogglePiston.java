@@ -7,7 +7,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.PistonSubsystem;;
+import frc.robot.subsystems.PistonSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -18,7 +18,7 @@ public class TogglePiston extends CommandBase {
 	private final PistonSubsystem subsystem;
 
 	/**
-	 * Creates a new ExampleCommand.
+	 * Creates a new TogglePiston command
 	 *
 	 * @param subsystem The subsystem used by this command.
 	 */
@@ -47,6 +47,6 @@ public class TogglePiston extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
 }

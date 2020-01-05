@@ -27,15 +27,19 @@ public class PistonSubsystem extends SubsystemBase {
 		// This method will be called once per scheduler run
 	}
 
+	/**
+	 * Wraps the internal solenoid .get method
+	 * @return The state of the internal solenoid, boolean
+	 */
 	public boolean getState() {
 		return solenoid.get();
 	}
 
 	/**
-	 * Wraps the internal solenoid
-	 * @param speed double between [-1, 1]
+	 * Wraps the internal solenoid .set method
+	 * @param state boolean passed to internal solenoid
 	 */
-	public void setState(boolean open) {
-		this.solenoid.set(open);
+	public void setState(boolean state) {
+		this.solenoid.set(state);
 	}
 }
