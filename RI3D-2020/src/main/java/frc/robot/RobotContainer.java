@@ -39,8 +39,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	private final ExampleSubsystem exampleSubsystem;
-	private final ExampleCommand autoCommand;
+	//private final ExampleCommand autoCommand;
 
 	private final SpeedController lbMotor;
 	private final SpeedController lfMotor;
@@ -105,10 +104,13 @@ public class RobotContainer {
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
+<<<<<<< Updated upstream
 		this.exampleSubsystem = new ExampleSubsystem();
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
+=======
+>>>>>>> Stashed changes
 		// Define IO devices
 		this.mainController = new XboxController(Constants.mainControllerPort);
 		// Define button objects
@@ -148,6 +150,7 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return this.autoCommand;
+		//return this.autoCommand;
+		return null;
 	}
 }

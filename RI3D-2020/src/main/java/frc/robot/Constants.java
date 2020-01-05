@@ -25,6 +25,7 @@ public final class Constants {
     public static final int shooterButtonPort = joystickTriggerButtonPort;
     public static final int pistonButtonPort = joystickSideButtonPort;
     public static final int controlPanelButtonPort = -1;
+    public static final int pistonButtonPort = -1;
 
     public static final int lbMotorPort = 0;
     public static final int lfMotorPort = 1;
@@ -35,6 +36,7 @@ public final class Constants {
     public static final int intakeMotorPort = -1;
 
     public static final int hopperMotorPort = -1;
+    public static final int pistonPort = -1;
 
     public static final int pistonSolenoidPort = 0;
 
