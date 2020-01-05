@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.subsystems.*; //We're going to use all the subsystems anyways
 
@@ -57,10 +58,10 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Create motor objects
-    this.lbMotor = new VictorSP(Constants.lbMotorPort);    
-    this.lfMotor = new VictorSP(Constants.lfMotorPort);
-    this.rbMotor = new VictorSP(Constants.rbMotorPort);
-    this.rfMotor = new VictorSP(Constants.rfMotorPort);
+    this.lbMotor = new WPI_TalonSRX(Constants.lbMotorPort);    
+    this.lfMotor = new WPI_TalonSRX(Constants.lfMotorPort);
+    this.rbMotor = new WPI_TalonSRX(Constants.rbMotorPort);
+    this.rfMotor = new WPI_TalonSRX(Constants.rfMotorPort);
 
     this.shooterMotor = new Spark(Constants.shooterMotorPort);
     //this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
