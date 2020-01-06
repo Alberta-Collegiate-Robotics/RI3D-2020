@@ -51,7 +51,22 @@ public class PistonSubsystem extends SubsystemBase {
 			this.solenoid.set(Value.kReverse);
 		}
 	}
+	
 	public void setState(Value state) {
 		this.solenoid.set(state);
+	}
+
+	/**
+	 * Sets the internal double solenoid state using an int
+	 * @param state 0: off, 1: reverse, 2: forward
+	 */
+	public void setState(int state) {
+		if (state == 0) {
+			this.solenoid.set(Value.kOff);
+		} else if (state == 1) {
+			this.solenoid.set(Value.kReverse);
+		} else if (state == 2) {
+			this.solenoid.set(Value.kForward);
+		}
 	}
 }
