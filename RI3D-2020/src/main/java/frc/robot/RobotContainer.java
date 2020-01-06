@@ -67,12 +67,13 @@ public class RobotContainer {
 	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
-	private final SpeedController upperElevatorLeft;
-	private final SpeedController upperElevatorRight;
-	private final SpeedController lowerElevatorLeft;
-	private final SpeedController lowerElevatorRight;
+	private final SpeedController upperElevatorLeftMotor;
+	private final SpeedController upperElevatorRightMotor;
+	private final SpeedController lowerElevatorLeftMotor;
+	private final SpeedController lowerElevatorRightMotor;
 
-	private final SpeedControllerGroup upperElevator, lowerElevator;
+	private final SpeedController upperElevatorMotors;
+	private final SpeedController lowerElevatorMotors;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
@@ -118,13 +119,13 @@ public class RobotContainer {
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
-		this.upperElevatorLeft = new VictorSP(Constants.elevatorUpLeftPort);
-		this.upperElevatorRight = new VictorSP(Constants.elevatorUpRightPort);
-		this.lowerElevatorLeft = new VictorSP(Constants.elevatorDownLeftPort);
-		this.lowerElevatorRight = new VictorSP(Constants.elevatorDownRightPort);
+		this.upperElevatorLeftMotor = new VictorSP(Constants.upperElevatorLeftMotorPort);
+		this.upperElevatorRightMotor = new VictorSP(Constants.upperElevatorRightMotorPort);
+		this.lowerElevatorLeftMotor = new VictorSP(Constants.lowerElevatorLeftMotorPort);
+		this.lowerElevatorRightMotor = new VictorSP(Constants.lowerElevatorRightMotorPort);
 
-		this.upperElevator = new SpeedControllerGroup(upperElevatorLeft, upperElevatorRight);
-		this.lowerElevator = new SpeedControllerGroup(lowerElevatorLeft, lowerElevatorRight);
+		this.upperElevatorMotors = new SpeedControllerGroup(upperElevatorLeftMotor, upperElevatorRightMotor);
+		this.lowerElevatorMotors = new SpeedControllerGroup(lowerElevatorLeftMotor, lowerElevatorRightMotor);
 
 		can4 = new WPI_TalonSRX(4);
 		can5 = new WPI_TalonSRX(5);
@@ -149,7 +150,7 @@ public class RobotContainer {
 
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 
-		this.elevatorSubsystem = new ElevatorSubsystem(upperElevator, lowerElevator);
+		this.elevatorSubsystem = new ElevatorSubsystem(this.upperElevatorMotors, this.lowerElevatorMotors);
 
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
@@ -212,7 +213,7 @@ public class RobotContainer {
 		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lower, -Constants.upperElevatorSpeed));
 
 		this.toggleHopperButton.whenPressed(new ToggleMotor(hopperSubsystem, Constants.hopperMotorSpeed));
-
+		//TODO investigate this: toggleHopperButton.toggleWhenPressed()
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
