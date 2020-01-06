@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -213,7 +212,8 @@ public class RobotContainer {
 		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lower, -Constants.upperElevatorSpeed));
 
 		this.toggleHopperButton.whenPressed(new ToggleMotor(hopperSubsystem, Constants.hopperMotorSpeed));
-		//TODO investigate this: toggleHopperButton.toggleWhenPressed()
+		//TODO investigate toggleWhenPressed: 
+		//toggleHopperButton.toggleWhenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
@@ -225,7 +225,6 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		//return this.autoCommand;
-		return null;
+		return this.autoCommand;
 	}
 }
