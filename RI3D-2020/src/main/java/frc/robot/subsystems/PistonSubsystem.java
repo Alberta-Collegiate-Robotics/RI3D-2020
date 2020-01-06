@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PistonSubsystem extends SubsystemBase {
@@ -37,7 +36,7 @@ public class PistonSubsystem extends SubsystemBase {
 	}
 
 	public boolean getBooleanState() {
-		return this.solenoid.get() == Value.kForward;
+		return this.solenoid.get() == DoubleSolenoid.Value.kForward;
 	}
 
 	/**
@@ -46,13 +45,13 @@ public class PistonSubsystem extends SubsystemBase {
 	 */
 	public void setState(boolean state) {
 		if(state) {
-			this.solenoid.set(Value.kForward);
+			this.solenoid.set(DoubleSolenoid.Value.kForward);
 		} else {
-			this.solenoid.set(Value.kReverse);
+			this.solenoid.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 	
-	public void setState(Value state) {
+	public void setState(DoubleSolenoid.Value state) {
 		this.solenoid.set(state);
 	}
 
@@ -62,11 +61,11 @@ public class PistonSubsystem extends SubsystemBase {
 	 */
 	public void setState(int state) {
 		if (state == 0) {
-			this.solenoid.set(Value.kOff);
+			this.solenoid.set(DoubleSolenoid.Value.kOff);
 		} else if (state == 1) {
-			this.solenoid.set(Value.kReverse);
+			this.solenoid.set(DoubleSolenoid.Value.kReverse);
 		} else if (state == 2) {
-			this.solenoid.set(Value.kForward);
+			this.solenoid.set(DoubleSolenoid.Value.kForward);
 		}
 	}
 }
