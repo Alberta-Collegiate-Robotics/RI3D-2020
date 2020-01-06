@@ -18,6 +18,7 @@ import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -76,10 +77,14 @@ public class RobotContainer {
 	private final MotorSubsystem intakeSubsystem;
 	private final MotorSubsystem hopperSubsystem;
 
-	private final ElevatorSubsystem elevatorSubsystem;
+	//private final ElevatorSubsystem elevatorSubsystem;
+	private final MotorSubsystem upperElevatorSubsystem;
+	private final MotorSubsystem lowerElevatorSubsystem;
 
 	private final PistonSubsystem pistonSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
+
+	private final MotorSubsystem motorTestSubsystem;
 
 	private final GenericHID mainController;
 	private final GenericHID secondaryController;
@@ -155,9 +160,14 @@ public class RobotContainer {
 
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 
-		this.elevatorSubsystem = new ElevatorSubsystem(this.upperElevatorMotors, this.lowerElevatorMotors);
+		//this.elevatorSubsystem = new ElevatorSubsystem(this.upperElevatorMotors, this.lowerElevatorMotors);
+
+		this.upperElevatorSubsystem = new MotorSubsystem(this.upperElevatorMotors);
+		this.lowerElevatorSubsystem = new MotorSubsystem(this.lowerElevatorMotors);
 
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
+
+		this.motorTestSubsystem = new MotorSubsystem(everythingTest);
 
 		// Setup autocommand
 		Command forward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0).withTimeout(Constants.autonomousForwardTime);
@@ -201,16 +211,26 @@ public class RobotContainer {
 		//this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
 		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
 
-		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), Constants.motorTestSpeed));
+		// Link all motors to shooter button for testing
+		// Create activatemotor command, manually link duplicate subsystems
+		ActivateMotor motorTest = new ActivateMotor(this.motorTestSubsystem, preferences.getDouble("motorTestSpeed", Constants.motorTestSpeed));
+		motorTest.addRequirements(
+			this.driveTrainSubsystem,
+			this.shooterSubsystem, this.intakeSubsystem, this.hopperSubsystem, this.upperElevatorSubsystem, this.lowerElevatorSubsystem
+		);
+		// Create InstantCommand that schedules the motorTest command, but changes the speed first
+		this.shooterButton.whenHeld(
+			new InstantCommand(() -> {
+				motorTest.setSpeed(preferences.getDouble("motorTestSpeed", Constants.motorTestSpeed));
+				motorTest.schedule();
+			}
+			)
+		);
 
-		//Yes, this is ugly. (Creating motor subsystem from elevator subsystem).
-		MotorSubsystem upper = new MotorSubsystem(elevatorSubsystem.getUpperMotors()); 
-		MotorSubsystem lower = new MotorSubsystem(elevatorSubsystem.getLowerMotors()); 
-
-		this.upperElevatorUpButton.whenHeld(new ActivateMotor(upper, Constants.upperElevatorSpeed));
-		this.upperElevatorDownButton.whenHeld(new ActivateMotor(upper, -Constants.upperElevatorSpeed));
-		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lower, Constants.upperElevatorSpeed));
-		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lower, -Constants.upperElevatorSpeed));
+		this.upperElevatorUpButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, Constants.upperElevatorSpeed));
+		this.upperElevatorDownButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, -Constants.upperElevatorSpeed));
+		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, Constants.upperElevatorSpeed));
+		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, -Constants.upperElevatorSpeed));
 
 		this.toggleHopperButton.whenPressed(new ToggleMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		//TODO investigate toggleWhenPressed: 
