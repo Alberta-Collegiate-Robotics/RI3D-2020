@@ -40,7 +40,7 @@ public class PistonSubsystem extends SubsystemBase {
 	}
 
 	/**
-	 * Wraps the internal solenoid .set method
+	 * Sets internal doublesolenoid state, true: forward, false: reverse
 	 * @param state boolean passed to internal solenoid
 	 */
 	public void setState(boolean state) {
@@ -57,14 +57,14 @@ public class PistonSubsystem extends SubsystemBase {
 
 	/**
 	 * Sets the internal double solenoid state using an int
-	 * @param state 0: off, 1: reverse, 2: forward
+	 * @param state 0: off, -1: reverse, 1: forward
 	 */
 	public void setState(int state) {
 		if (state == 0) {
 			this.solenoid.set(DoubleSolenoid.Value.kOff);
-		} else if (state == 1) {
+		} else if (state == -1) {
 			this.solenoid.set(DoubleSolenoid.Value.kReverse);
-		} else if (state == 2) {
+		} else if (state == 1) {
 			this.solenoid.set(DoubleSolenoid.Value.kForward);
 		}
 	}
