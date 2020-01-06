@@ -13,6 +13,7 @@ import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
 import frc.robot.subsystems.DifferentialDriveTrain;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
@@ -63,19 +64,23 @@ public class RobotContainer {
 	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
-	// private final SpeedController elevatorUp;
-	// private final SpeedController elevatorDown;
+	private final SpeedController elevatorUpLeft;
+	private final SpeedController elevatorUpRight;
+	private final SpeedController elevatorDownLeft;
+	private final SpeedController elevatorDownRight;
+
+	private final SpeedControllerGroup elevatorUpMotors;
+	private final SpeedControllerGroup elevatorDownMotors;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
 	private final MotorSubsystem intakeSubsystem;
 	private final MotorSubsystem hopperSubsystem;
 
+	private final ElevatorSubsystem elevatorSubsystem;
+
 	private final PistonSubsystem pistonSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
-
-	// private final MotorSubsystem elevatorUpSubsystem;
-	// private final MotorSubsystem elevatorDownSubsystem;
 
 	private final ExampleSubsystem exampleSubsystem;
 
@@ -104,6 +109,14 @@ public class RobotContainer {
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
+		this.elevatorDownLeft = new VictorSP(Constants.elevatorDownLeftPort);
+		this.elevatorDownRight = new VictorSP(Constants.elevatorDownRightPort);
+		this.elevatorUpLeft = new VictorSP(Constants.elevatorUpLeftPort);
+		this.elevatorUpRight = new VictorSP(Constants.elevatorUpRightPort);
+
+		this.elevatorDownMotors = new SpeedControllerGroup(elevatorDownLeft, elevatorDownRight);
+		this.elevatorUpMotors = new SpeedControllerGroup(elevatorUpLeft, elevatorUpRight);
+
 		can4 = new WPI_TalonSRX(4);
 		can5 = new WPI_TalonSRX(5);
 
@@ -129,6 +142,9 @@ public class RobotContainer {
 		this.hopperSubsystem = new MotorSubsystem(this.hopperMotor);
 
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
+
+		this.elevatorSubsystem = new ElevatorSubsystem(elevatorDownMotors, elevatorUpMotors);
+
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.exampleSubsystem = new ExampleSubsystem();

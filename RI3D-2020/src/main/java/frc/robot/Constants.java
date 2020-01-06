@@ -35,6 +35,11 @@ public final class Constants {
     public static final int intakeMotorPort = 1;
     public static final int hopperMotorPort = 2;
 
+    public static final int elevatorDownLeftPort = -1;
+    public static final int elevatorDownRightPort = -1;
+    public static final int elevatorUpLeftPort = -1;
+    public static final int elevatorUpRightPort = -1;
+
     public static final int pistonPort = -1;
 
     public static final int pistonSolenoidPortA = 0;
