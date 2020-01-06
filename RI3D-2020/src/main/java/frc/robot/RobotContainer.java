@@ -58,9 +58,6 @@ public class RobotContainer {
 	private final SpeedController intakeMotor;
 	private final SpeedController hopperMotor;
 
-	private final SpeedController can4, can5;
-	private final SpeedController pwm3, pwm4;
-
 	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
@@ -111,9 +108,8 @@ public class RobotContainer {
 		this.leftDriveMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
 		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
 
-		this.shooterMotor = new VictorSP(Constants.shooterMotorPort);
-		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
-
+		this.shooterMotor = new WPI_TalonSRX(Constants.shooterMotorPort);
+		this.intakeMotor = new WPI_TalonSRX(Constants.intakeMotorPort);
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
 		this.upperElevatorLeftMotor = new VictorSP(Constants.upperElevatorLeftMotorPort);
@@ -124,16 +120,16 @@ public class RobotContainer {
 		this.upperElevatorMotors = new SpeedControllerGroup(upperElevatorLeftMotor, upperElevatorRightMotor);
 		this.lowerElevatorMotors = new SpeedControllerGroup(lowerElevatorLeftMotor, lowerElevatorRightMotor);
 
-		can4 = new WPI_TalonSRX(4);
-		can5 = new WPI_TalonSRX(5);
-
-		pwm3 = new VictorSP(3);
-		pwm4 = new VictorSP(4);
-
 		// Create solenoid object
 		this.piston = new DoubleSolenoid(Constants.pistonSolenoidPortA, Constants.pistonSolenoidPortB);
 
-		everythingTest = new SpeedControllerGroup(shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
+		// Create testing speedcontroller
+		everythingTest = new SpeedControllerGroup(
+			lbMotor, lfMotor, rbMotor, rfMotor,
+			shooterMotor, intakeMotor, hopperMotor,
+			upperElevatorLeftMotor, upperElevatorRightMotor,
+			lowerElevatorLeftMotor, lowerElevatorRightMotor
+		);
 
 		//this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
@@ -180,8 +176,6 @@ public class RobotContainer {
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getY(), this.mainController.getX()), this.driveTrainSubsystem));
 		// Set the intake and hopper to be constantly running
 		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
-
-		// TODO attach command to height subsystem
 
 		// Configure the button bindings
 		this.configureButtonBindings();

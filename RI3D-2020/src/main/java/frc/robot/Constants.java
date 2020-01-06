@@ -36,14 +36,14 @@ public final class Constants {
     public static final int rbMotorPort = 2;
     public static final int rfMotorPort = 3;
 
-    public static final int shooterMotorPort = 0;
-    public static final int intakeMotorPort = 1;
-    public static final int hopperMotorPort = 2;
+    public static final int shooterMotorPort = 4;
+    public static final int intakeMotorPort = 5;
+    public static final int hopperMotorPort = 0;
 
-    public static final int upperElevatorLeftMotorPort = -1;
-    public static final int upperElevatorRightMotorPort = -1;
-    public static final int lowerElevatorLeftMotorPort = -1;
-    public static final int lowerElevatorRightMotorPort = -1;
+    public static final int upperElevatorLeftMotorPort = 1;
+    public static final int upperElevatorRightMotorPort = 2;
+    public static final int lowerElevatorLeftMotorPort = 3;
+    public static final int lowerElevatorRightMotorPort = 4;
 
     public static final int pistonSolenoidPortA = 0;
     public static final int pistonSolenoidPortB = 1;
