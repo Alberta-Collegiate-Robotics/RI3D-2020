@@ -7,12 +7,10 @@
 
 package frc.robot;
 
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ActivateMotor;
 import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
@@ -40,8 +38,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	private final ExampleSubsystem exampleSubsystem;
-	private final ExampleCommand autoCommand;
+	//private final ExampleCommand autoCommand;
 
 	private final SpeedController lbMotor;
 	private final SpeedController lfMotor;
@@ -108,7 +105,7 @@ public class RobotContainer {
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
-		this.exampleSubsystem = new ExampleSubsystem();
+		//this.exampleSubsystem = new ExampleSubsystem();
 
 		// Setup autocommand
 		Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
@@ -155,6 +152,7 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		// An ExampleCommand will run in autonomous
-		return this.autoCommand;
+		//return this.autoCommand;
+		return null;
 	}
 }
