@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ActivateMotor;
 import frc.robot.commands.TogglePiston;
+import frc.robot.commands.ActivateArcadeDrive;
 
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DifferentialDriveTrain;
@@ -87,6 +88,8 @@ public class RobotContainer {
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
+
+		// Create solenoid object
 		this.piston = new Solenoid(Constants.pistonSolenoidPort);
 
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
@@ -106,6 +109,10 @@ public class RobotContainer {
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.exampleSubsystem = new ExampleSubsystem();
+
+		// Setup autocommand
+		Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
+		Command forward3s = driveForward.withTimeout(3);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
