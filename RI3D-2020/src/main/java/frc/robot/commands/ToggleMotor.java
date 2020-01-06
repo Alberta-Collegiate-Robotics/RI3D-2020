@@ -35,7 +35,7 @@ public class ToggleMotor extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		if(this.subsystem.getMotorSpeed() == 0.0) {
+		if(this.subsystem.getSpeed() == 0.0) {
 			this.subsystem.setSpeed(this.speed);
 		} else {
 			this.subsystem.setSpeed(0.0);
