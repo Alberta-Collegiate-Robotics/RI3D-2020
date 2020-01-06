@@ -82,6 +82,7 @@ public class RobotContainer {
 	//private final MotorSubsystem controlPanelSubsystem;
 
 	private final GenericHID mainController;
+	private final GenericHID secondaryController;
 	private final Button shooterButton;
 	private final Button pistonButton;
 
@@ -167,6 +168,7 @@ public class RobotContainer {
 
 		// Define IO devices
 		this.mainController = new Joystick(Constants.mainControllerPort);
+		this.secondaryController = new XboxController(Constants.secondaryControllerPort);
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);

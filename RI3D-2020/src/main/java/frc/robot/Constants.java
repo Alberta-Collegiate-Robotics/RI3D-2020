@@ -17,11 +17,12 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int xboxAButtonPort = 0;
+    public static final int mainControllerPort = 0;
+    public static final int secondaryControllerPort = 0;
+
     public static final int joystickTriggerButtonPort = 1;
     public static final int joystickSideButtonPort = 2;
 
-    public static final int mainControllerPort = 0;
     public static final int shooterButtonPort = joystickTriggerButtonPort;
     public static final int pistonButtonPort = joystickSideButtonPort;
     public static final int controlPanelButtonPort = -1;
