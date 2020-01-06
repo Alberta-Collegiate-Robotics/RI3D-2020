@@ -87,16 +87,19 @@ public class RobotContainer {
 
 	private final GenericHID mainController;
 	private final GenericHID secondaryController;
+
 	private final Button shooterButton;
-	private final Button pistonButton;
 	private final Button intakeButton;
+	private final Button hopperButton;
+	private final Button hopperBurstButton;
+	
+	private final Button pistonButton;
 
 	private final Button upperElevatorUpButton;
 	private final Button upperElevatorDownButton;
 	private final Button lowerElevatorUpButton;
 	private final Button lowerElevatorDownButton;
 
-	private final Button hopperButton;
 	//private final Button controlPanelButton;
 
 	private final Command autoCommand;
@@ -181,10 +184,12 @@ public class RobotContainer {
 		// Define IO devices
 		this.mainController = new Joystick(Constants.mainControllerPort);
 		this.secondaryController = new XboxController(Constants.secondaryControllerPort);
+
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 		this.intakeButton = new JoystickButton(this.mainController, Constants.intakeButtonPort);
 		this.hopperButton = new JoystickButton(this.mainController, Constants.hopperButtonPort);
+		this.hopperBurstButton = new JoystickButton(this.mainController, Constants.hopperBurstButtonPort);
 
 		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
 
@@ -233,7 +238,8 @@ public class RobotContainer {
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 
 		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
-		this.hopperButton.toggleWhenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
 
 		this.upperElevatorUpButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, Constants.upperElevatorSpeed));
 		this.upperElevatorDownButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, -Constants.upperElevatorSpeed));

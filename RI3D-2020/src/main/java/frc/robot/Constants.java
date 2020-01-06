@@ -18,7 +18,7 @@ package frc.robot;
 public final class Constants {
 
     public static final int mainControllerPort = 0;
-    public static final int secondaryControllerPort = 0;
+    public static final int secondaryControllerPort = 1;
 
     public static final int joystickTriggerButtonPort = 1;
     public static final int joystickSideButtonPort = 2;
@@ -26,6 +26,8 @@ public final class Constants {
     public static final int shooterButtonPort = 7;
     public static final int intakeButtonPort = 9;
     public static final int hopperButtonPort = 11;
+
+    public static final int hopperBurstButtonPort = 3;
 
     public static final int pistonButtonPort = joystickSideButtonPort;
 
@@ -70,5 +72,7 @@ public final class Constants {
     public static final double autonomousForwardTime = 3.0;
     public static final double autonomousTurnTime = 3.0;
     public static final double autonomousShootTime = 3.0;
+
+    public static final double hopperBurstTime = 0.5;
 
 }
