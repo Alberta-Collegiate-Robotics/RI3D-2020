@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.PistonSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * An example command that uses an example subsystem.
@@ -18,7 +17,7 @@ public class ActivatePiston extends CommandBase {
 
 	private final PistonSubsystem subsystem;
 
-	private final DoubleSolenoid.Value state;
+	private final int state;
 
 	/**
 	 * Creates a new ActivatePiston Command
@@ -26,7 +25,7 @@ public class ActivatePiston extends CommandBase {
 	 *
 	 * @param subsystem The subsystem used by this command.
 	 */
-	public ActivatePiston(PistonSubsystem subsystem, DoubleSolenoid.Value state) {
+	public ActivatePiston(PistonSubsystem subsystem, int state) {
 		// Reference subsystem
 		this.subsystem = subsystem;
 		// Reference state
@@ -50,7 +49,7 @@ public class ActivatePiston extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		// Deactivate the piston
-		this.subsystem.setState(DoubleSolenoid.Value.kOff);
+		this.subsystem.setState(0);
 	}
 
 	// Returns true when the command should end.
