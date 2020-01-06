@@ -35,6 +35,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.cameraserver.CameraServer;
+
 //import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -152,6 +154,9 @@ public class RobotContainer {
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
 		this.exampleSubsystem = new ExampleSubsystem();
+
+		// Start camera server
+		CameraServer.getInstance().startAutomaticCapture();
 
 		// Setup autocommand
 		//Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
