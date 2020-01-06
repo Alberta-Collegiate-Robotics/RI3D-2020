@@ -8,19 +8,18 @@
 package frc.robot;
 
 import frc.robot.commands.ActivateMotor;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ToggleMotor;
 import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
 import frc.robot.subsystems.DifferentialDriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -46,7 +45,6 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	private final ExampleCommand autoCommand;
 
 	private final SpeedController lbMotor;
 	private final SpeedController lfMotor;
@@ -84,8 +82,6 @@ public class RobotContainer {
 	private final PistonSubsystem pistonSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
 
-	private final ExampleSubsystem exampleSubsystem;
-
 	private final GenericHID mainController;
 	private final Button shooterButton;
 	private final Button pistonButton;
@@ -99,6 +95,8 @@ public class RobotContainer {
 	//private final Button controlPanelButton;
 
 	private final SpeedControllerGroup everythingTest;
+
+	private final Command autoCommand;
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -153,16 +151,15 @@ public class RobotContainer {
 
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
-		this.exampleSubsystem = new ExampleSubsystem();
-
 		// Start camera server
 		CameraServer.getInstance().startAutomaticCapture();
 
 		// Setup autocommand
-		//Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
-		//Command forward3s = driveForward.withTimeout(3);
+		Command forward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0).withTimeout(Constants.autonomousForwardTime);
+		Command turn = new ActivateArcadeDrive(this.driveTrainSubsystem, 0, 1.0).withTimeout(Constants.autonomousTurnTime);
+		Command shoot = new ActivateMotor(this.shooterSubsystem, 1.0).withTimeout(Constants.autonomousShootTime);
 
-		this.autoCommand = new ExampleCommand(exampleSubsystem);
+		this.autoCommand = new SequentialCommandGroup(forward, turn, shoot);
 
 		// Define IO devices
 		this.mainController = new Joystick(Constants.mainControllerPort);

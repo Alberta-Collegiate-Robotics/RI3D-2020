@@ -59,4 +59,9 @@ public final class Constants {
     public static final double lowerElevatorSpeed = 0.5;
 
     //public static final double controlPanelSpeed = 1.0;
+
+    public static final double autonomousForwardTime = 3.0;
+    public static final double autonomousTurnTime = 3.0;
+    public static final double autonomousShootTime = 3.0;
+
 }
