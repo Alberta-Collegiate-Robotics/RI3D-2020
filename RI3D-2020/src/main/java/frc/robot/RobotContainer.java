@@ -236,7 +236,6 @@ public class RobotContainer {
 		// );
 
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
-
 		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
@@ -246,8 +245,7 @@ public class RobotContainer {
 		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, Constants.upperElevatorSpeed));
 		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, -Constants.upperElevatorSpeed));
 
-		this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1));
-		this.pistonButton.whenReleased(new ActivatePiston(pistonSubsystem, -1));
+		this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
