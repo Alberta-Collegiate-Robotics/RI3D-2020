@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.commands.ActivateMotor;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
@@ -19,6 +20,7 @@ import frc.robot.subsystems.PistonSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -104,7 +106,7 @@ public class RobotContainer {
 		// Create solenoid object
 		this.piston = new Solenoid(Constants.pistonSolenoidPort);
 
-		everythingTest = new SpeedControllerGroup(lbMotor, rbMotor, lfMotor, rfMotor, shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
+		everythingTest = new SpeedControllerGroup(shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
 
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
 		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
@@ -125,23 +127,23 @@ public class RobotContainer {
 		this.exampleSubsystem = new ExampleSubsystem();
 
 		// Setup autocommand
-		Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
-		Command forward3s = driveForward.withTimeout(3);
+		//Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
+		//Command forward3s = driveForward.withTimeout(3);
 
 		this.autoCommand = new ExampleCommand(exampleSubsystem);
 
 		// Define IO devices
-		this.mainController = new XboxController(Constants.mainControllerPort);
+		this.mainController = new Joystick(Constants.mainControllerPort);
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
 		//this.controlPanelButton = new JoystickButton(this.mainController, Constants.controlPanelButtonPort);
 
 		// Create/define default drive command
-		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getX(), this.mainController.getY()), this.driveTrainSubsystem));
+		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getY(), this.mainController.getX()), this.driveTrainSubsystem));
 		// Set the intake and hopper to be constantly running
-		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
-		this.hopperSubsystem.setDefaultCommand(new ActivateMotor(this.hopperSubsystem, Constants.hopperMotorSpeed));
+		//this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
+		//this.hopperSubsystem.setDefaultCommand(new ActivateMotor(this.hopperSubsystem, Constants.hopperMotorSpeed));
 
 		// TODO attach command to height subsystem
 
@@ -159,7 +161,7 @@ public class RobotContainer {
 		//this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
 		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
 
-		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), 0.25));
+		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), 0.5));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 

@@ -44,8 +44,8 @@ public class DifferentialDriveTrain extends SubsystemBase {
         this.rfMotor = rfMotor;
 
         // Combine motors into left/right groups
-        this.leftMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
-        this.rightMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
+        this.leftMotors = new SpeedControllerGroup(this.lfMotor, this.lbMotor);
+        this.rightMotors = new SpeedControllerGroup(this.rfMotor, this.rbMotor);
 
         // Combine motor groups into differential drive
         this.drive = new DifferentialDrive(this.leftMotors, this.rightMotors);

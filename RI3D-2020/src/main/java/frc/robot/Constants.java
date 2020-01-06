@@ -18,8 +18,8 @@ package frc.robot;
 public final class Constants {
 
     public static final int xboxAButtonPort = 0;
-    public static final int joystickTriggerButtonPort = 0;
-    public static final int joystickSideButtonPort = 1;
+    public static final int joystickTriggerButtonPort = 1;
+    public static final int joystickSideButtonPort = 2;
 
     public static final int mainControllerPort = 0;
     public static final int shooterButtonPort = joystickTriggerButtonPort;
@@ -34,7 +34,7 @@ public final class Constants {
     public static final int shooterMotorPort = 0;
     public static final int intakeMotorPort = 1;
     public static final int hopperMotorPort = 2;
-    
+
     public static final int pistonPort = -1;
 
     public static final int pistonSolenoidPort = 0;
@@ -42,7 +42,7 @@ public final class Constants {
     //public static final int controlPanelPort = 0;
 
     public static final double shooterMotorSpeed = 1.0;
-    public static final double intakeMotorSpeed = 1.0;
+    public static final double intakeMotorSpeed = 0.5;
 
     public static final double hopperMotorSpeed = 0.5;
 
