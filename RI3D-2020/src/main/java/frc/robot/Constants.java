@@ -23,10 +23,11 @@ public final class Constants {
     public static final int joystickTriggerButtonPort = 1;
     public static final int joystickSideButtonPort = 2;
 
-    public static final int shooterButtonPort = joystickTriggerButtonPort;
+    public static final int shooterButtonPort = 7;
+    public static final int intakeButtonPort = 9;
+    public static final int hopperButtonPort = 11;
+
     public static final int pistonButtonPort = joystickSideButtonPort;
-    public static final int intakeButtonPort = joystickSideButtonPort;
-    public static final int hopperButtonPort = 3;
 
     public static final int controlPanelButtonPort = -1;
     public static final int upperElevatorUpButtonPort = -1;
