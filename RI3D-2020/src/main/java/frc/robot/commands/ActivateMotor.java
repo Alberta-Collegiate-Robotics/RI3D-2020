@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ActivateMotor extends CommandBase {
 
 	private final MotorSubsystem subsystem;
-	private final double speed;
+	private double speed;
 
 	/**
 	 * Creates a new ExampleCommand.
@@ -53,4 +53,21 @@ public class ActivateMotor extends CommandBase {
 	public boolean isFinished() {
 		return false;
 	}
+
+	/**
+	 * Returns the speed that the motor will be set to
+	 * @return double [-1, 1]
+	 */
+	public double getSpeed() {
+		return this.speed;
+	}
+
+	/**
+	 * Sets the speed the motor will bet set to upon initialize
+	 * @param speed double [-1, 1]
+	 */
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
 }
