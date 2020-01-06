@@ -52,9 +52,9 @@ public final class Constants {
     public static final int pistonSolenoidPortA = 0;
     public static final int pistonSolenoidPortB = 1;
 
-    public static final double shooterMotorSpeed = -1.0;
-    public static final double intakeMotorSpeed = 0.8;
-    public static final double hopperMotorSpeed = 0.3;
+    public static final double shooterMotorSpeed = 1.0;
+    public static final double intakeMotorSpeed = 0.35;
+    public static final double hopperMotorSpeed = -0.3;
 
     public static final double elevatorSpeed = 0.25;
 

@@ -206,7 +206,7 @@ public class RobotContainer {
 		// Shooter rawAxis is the joystick slider
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
-		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+		this.hopperButton.toggleWhenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
 
 		// Bind elevator buttons
