@@ -211,7 +211,7 @@ public class RobotContainer {
 
 		// Bind elevator buttons
 		this.elevatorUpButton.whenHeld(new ActivateMotor(elevatorSubsystem, Constants.elevatorSpeed));
-		this.elevatorDownButton.whenHeld(new ActivateMotor(elevatorSubsystem, Constants.elevatorSpeed));
+		this.elevatorDownButton.whenHeld(new ActivateMotor(elevatorSubsystem, -Constants.elevatorSpeed));
 
 		// Bind piston buttons
 		//this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));

@@ -23,13 +23,13 @@ public final class Constants {
     public static final int joystickTriggerButtonPort = 1;
     public static final int joystickSideButtonPort = 2;
 
-    public static final int shooterButtonPort = 7;
-    public static final int intakeButtonPort = 9;
-    public static final int hopperButtonPort = 11;
-    public static final int hopperBurstButtonPort = 3;
+    public static final int shooterButtonPort = 3;
+    public static final int intakeButtonPort = 4;
+    public static final int hopperButtonPort = 5;
+    public static final int hopperBurstButtonPort = 6;
     
-    public static final int elevatorUpButtonPort = -1;
-    public static final int elevatorDownButtonPort = -1;
+    public static final int elevatorUpButtonPort = 12;
+    public static final int elevatorDownButtonPort = 11;
 
     public static final int pistonButtonPort = joystickSideButtonPort;
     public static final int pistonForwardButtonPOVAngle = 0;
@@ -43,11 +43,11 @@ public final class Constants {
     public static final int shooterMotorAPort = 0;
     public static final int shooterMotorBPort = 1;
 
-    public static final int intakeMotorPort = 0;
-    public static final int hopperMotorPort = 1;
+    public static final int intakeMotorPort = 3;
+    public static final int hopperMotorPort = 2;
 
-    public static final int elevatorMotorAPort = 2;
-    public static final int elevatorMotorBPort = 3;
+    public static final int elevatorMotorAPort = 0;
+    public static final int elevatorMotorBPort = 1;
 
     public static final int pistonSolenoidPortA = 0;
     public static final int pistonSolenoidPortB = 1;
@@ -56,7 +56,7 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.8;
     public static final double hopperMotorSpeed = 0.3;
 
-    public static final double elevatorSpeed = 1.0;
+    public static final double elevatorSpeed = 0.25;
 
     public static final double motorTestSpeed = 0.5;
 
