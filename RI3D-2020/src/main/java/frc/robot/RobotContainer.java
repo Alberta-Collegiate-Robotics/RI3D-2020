@@ -66,13 +66,10 @@ public class RobotContainer {
 	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
-	private final SpeedController upperElevatorLeftMotor;
-	private final SpeedController upperElevatorRightMotor;
-	private final SpeedController lowerElevatorLeftMotor;
-	private final SpeedController lowerElevatorRightMotor;
+	private final SpeedController elevatorMotorA;
+	private final SpeedController elevatorMotorB;
 
-	private final SpeedController upperElevatorMotors;
-	private final SpeedController lowerElevatorMotors;
+	private final SpeedController elevatorMotors;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
@@ -80,8 +77,7 @@ public class RobotContainer {
 	private final MotorSubsystem hopperSubsystem;
 
 	//private final ElevatorSubsystem elevatorSubsystem;
-	private final MotorSubsystem upperElevatorSubsystem;
-	private final MotorSubsystem lowerElevatorSubsystem;
+	private final MotorSubsystem elevatorSubsystem;
 
 	private final PistonSubsystem pistonSubsystem;
 	//private final MotorSubsystem controlPanelSubsystem;
@@ -98,10 +94,8 @@ public class RobotContainer {
 	private final Button pistonForwardButton;
 	private final Button pistonReverseButton;
 
-	private final Button upperElevatorUpButton;
-	private final Button upperElevatorDownButton;
-	private final Button lowerElevatorUpButton;
-	private final Button lowerElevatorDownButton;
+	private final Button elevatorUpButton;
+	private final Button elevatorDownButton;
 
 	//private final Button controlPanelButton;
 
@@ -121,99 +115,83 @@ public class RobotContainer {
 		this.preferences = Preferences.getInstance();
 
 		// Create motor objects
+		// Drive motors and groups
 		this.lbMotor = new WPI_TalonSRX(Constants.lbMotorPort);
 		this.lfMotor = new WPI_TalonSRX(Constants.lfMotorPort);
 		this.rbMotor = new WPI_TalonSRX(Constants.rbMotorPort);
 		this.rfMotor = new WPI_TalonSRX(Constants.rfMotorPort);
-
 		this.leftDriveMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
 		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
 
-		this.shooterMotorA = new VictorSP(Constants.shooterMotorPortA);
-		this.shooterMotorB = new VictorSP(Constants.shooterMotorPortB);
-
+		// Shooter motors and group
+		this.shooterMotorA = new VictorSP(Constants.shooterMotorAPort);
+		this.shooterMotorB = new VictorSP(Constants.shooterMotorBPort);
 		this.shooterMotors = new SpeedControllerGroup(shooterMotorA, shooterMotorB);
 
+		// Intake and hopper motor
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
-		this.upperElevatorLeftMotor = new VictorSP(Constants.upperElevatorLeftMotorPort);
-		this.upperElevatorRightMotor = new VictorSP(Constants.upperElevatorRightMotorPort);
-		this.lowerElevatorLeftMotor = new VictorSP(Constants.lowerElevatorLeftMotorPort);
-		this.lowerElevatorRightMotor = new VictorSP(Constants.lowerElevatorRightMotorPort);
+		// Elevator motors and group
+		this.elevatorMotorA = new VictorSP(Constants.elevatorMotorAPort);
+		this.elevatorMotorB = new VictorSP(Constants.elevatorMotorBPort);
+		this.elevatorMotors = new SpeedControllerGroup(elevatorMotorA, elevatorMotorB);
 
-		this.upperElevatorMotors = new SpeedControllerGroup(upperElevatorLeftMotor, upperElevatorRightMotor);
-		this.lowerElevatorMotors = new SpeedControllerGroup(lowerElevatorLeftMotor, lowerElevatorRightMotor);
-
-		// Create solenoid object
+		// Solenoid object
 		this.piston = new DoubleSolenoid(Constants.pistonSolenoidPortA, Constants.pistonSolenoidPortB);
 
-		// Create testing speedcontroller
-		// everythingTest = new SpeedControllerGroup(
-		// 	lbMotor, lfMotor, rbMotor, rfMotor,
-		// 	shooterMotors, intakeMotor, hopperMotor,
-		// 	upperElevatorLeftMotor, upperElevatorRightMotor,
-		// 	lowerElevatorLeftMotor, lowerElevatorRightMotor
-		// );
-
-		//this.controlPanelMotor = new Spark(Constants.controlPanelPort);
-
 		// Initalize subsystems and commands
+		// Drive subsystem
 		this.driveTrainSubsystem = new DifferentialDriveTrain(this.leftDriveMotors, this.rightDriveMotors);
 
+		// Shooter, intake, hopper motor subsystems
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotors);
 		this.intakeSubsystem = new MotorSubsystem(this.intakeMotor);
-
 		this.hopperSubsystem = new MotorSubsystem(this.hopperMotor);
+		// Elevator motor subsystem
+		this.elevatorSubsystem = new MotorSubsystem(this.elevatorMotors);
 
+		// Solenoid piston subsystem
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 
-		//this.elevatorSubsystem = new ElevatorSubsystem(this.upperElevatorMotors, this.lowerElevatorMotors);
-
-		this.upperElevatorSubsystem = new MotorSubsystem(this.upperElevatorMotors);
-		this.lowerElevatorSubsystem = new MotorSubsystem(this.lowerElevatorMotors);
-
-		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
-
-		//this.motorTestSubsystem = new MotorSubsystem(everythingTest);
-
 		// Setup autocommand
+		// Action commands
 		Command forward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0).withTimeout(Constants.autonomousForwardTime);
 		Command turn = new ActivateArcadeDrive(this.driveTrainSubsystem, 0, 1.0).withTimeout(Constants.autonomousTurnTime);
 		Command shoot = new ActivateMotor(this.shooterSubsystem, 1.0).withTimeout(Constants.autonomousShootTime);
-
+		// Group autocommand
 		this.autoCommand = new SequentialCommandGroup(forward, turn, shoot);
 
 		// Define IO devices
+		// Main joystick
 		this.mainController = new Joystick(Constants.mainControllerPort);
+		// Secondary 'Xbox' controller, emulated from panel
 		this.secondaryController = new XboxController(Constants.secondaryControllerPort);
 
 		// Define button objects
+		// Shooter, intake, hopper regular buttons
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 		this.intakeButton = new JoystickButton(this.mainController, Constants.intakeButtonPort);
 		this.hopperButton = new JoystickButton(this.mainController, Constants.hopperButtonPort);
+		// Different button for bursting the hopper
 		this.hopperBurstButton = new JoystickButton(this.mainController, Constants.hopperBurstButtonPort);
 
+		// Elevator buttons
+		this.elevatorUpButton = new JoystickButton(this.mainController, Constants.elevatorUpButtonPort);
+		this.elevatorDownButton = new JoystickButton(this.mainController, Constants.elevatorDownButtonPort);
+
+		// Piston buttons
 		//this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+		// POV buttons
 		this.pistonForwardButton = new POVButton(this.mainController, Constants.pistonForwardButtonPOVAngle);
 		this.pistonReverseButton = new POVButton(this.mainController, Constants.pistonReverseButtonPOVAngle);
 
-		this.upperElevatorUpButton = new JoystickButton(this.mainController, Constants.upperElevatorUpButtonPort);
-		this.upperElevatorDownButton = new JoystickButton(this.mainController, Constants.upperElevatorDownButtonPort);
-		this.lowerElevatorUpButton = new JoystickButton(this.mainController, Constants.lowerElevatorUpButtonPort);
-		this.lowerElevatorDownButton = new JoystickButton(this.mainController, Constants.lowerElevatorDownButtonPort);
-
-		
-
-		//this.controlPanelButton = new JoystickButton(this.mainController, Constants.controlPanelButtonPort);
-
-		// Create/define default drive command
+		// Create default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getY(), this.mainController.getX()), this.driveTrainSubsystem));
-		// Set the intake and hopper to be constantly running
-		//this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
 
 		// Configure the button bindings
 		this.configureButtonBindings();
+
 	}
 
 	/**
@@ -224,17 +202,18 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 
+		// Bind shooter, intake, hopper buttons using Constants speeds
 		// Shooter rawAxis is the joystick slider
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
 
-		this.upperElevatorUpButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, Constants.upperElevatorSpeed));
-		this.upperElevatorDownButton.whenHeld(new ActivateMotor(upperElevatorSubsystem, -Constants.upperElevatorSpeed));
-		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, Constants.upperElevatorSpeed));
-		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, -Constants.upperElevatorSpeed));
+		// Bind elevator buttons
+		this.elevatorUpButton.whenHeld(new ActivateMotor(elevatorSubsystem, Constants.elevatorSpeed));
+		this.elevatorDownButton.whenHeld(new ActivateMotor(elevatorSubsystem, Constants.elevatorSpeed));
 
+		// Bind piston buttons
 		//this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));
 		this.pistonForwardButton.whenHeld(new ActivatePiston(pistonSubsystem, 1));
 		this.pistonReverseButton.whenHeld(new ActivatePiston(pistonSubsystem, -1));
@@ -248,7 +227,7 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
-		// An ExampleCommand will run in autonomous
+		// Returns the auto command constructed in the constructor
 		return this.autoCommand;
 	}
 }

@@ -34,26 +34,22 @@ public final class Constants {
     public static final int pistonReverseButtonPOVAngle = 180;
 
     public static final int controlPanelButtonPort = -1;
-    public static final int upperElevatorUpButtonPort = -1;
-    public static final int upperElevatorDownButtonPort = -1;
-    public static final int lowerElevatorUpButtonPort = -1;
-    public static final int lowerElevatorDownButtonPort = -1;
+    public static final int elevatorUpButtonPort = -1;
+    public static final int elevatorDownButtonPort = -1;
 
     public static final int lbMotorPort = 10;
     public static final int lfMotorPort = 11;
     public static final int rbMotorPort = 12;
     public static final int rfMotorPort = 13;
 
-    public static final int shooterMotorPortA = 1;
-    public static final int shooterMotorPortB = 2;
+    public static final int shooterMotorAPort = 1;
+    public static final int shooterMotorBPort = 2;
 
     public static final int intakeMotorPort = 0;
     public static final int hopperMotorPort = 14;
 
-    public static final int upperElevatorLeftMotorPort = 15;
-    public static final int upperElevatorRightMotorPort = 16;
-    public static final int lowerElevatorLeftMotorPort = 17;
-    public static final int lowerElevatorRightMotorPort = 18;
+    public static final int elevatorMotorAPort = 15;
+    public static final int elevatorMotorBPort = 16;
 
     public static final int pistonSolenoidPortA = 0;
     public static final int pistonSolenoidPortB = 1;
@@ -61,11 +57,10 @@ public final class Constants {
     //public static final int controlPanelPort = 0;
 
     public static final double shooterMotorSpeed = -1.0;
-    public static final double intakeMotorSpeed = 0.3;
+    public static final double intakeMotorSpeed = 0.8;
     public static final double hopperMotorSpeed = 0.3;
 
-    public static final double upperElevatorSpeed = 0.5;
-    public static final double lowerElevatorSpeed = 0.5;
+    public static final double elevatorSpeed = 1.0;
 
     public static final double motorTestSpeed = 0.5;
 
