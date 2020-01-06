@@ -58,6 +58,8 @@ public final class Constants {
     public static final double upperElevatorSpeed = 0.5;
     public static final double lowerElevatorSpeed = 0.5;
 
+    public static final double motorTestSpeed = 0.5;
+
     //public static final double controlPanelSpeed = 1.0;
 
     public static final double autonomousForwardTime = 3.0;

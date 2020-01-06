@@ -191,7 +191,7 @@ public class RobotContainer {
 		//this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
 		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
 
-		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), 0.5));
+		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), Constants.motorTestSpeed));
 
 		//Yes, this is ugly. (Creating motor subsystem from elevator subsystem).
 		MotorSubsystem upper = new MotorSubsystem(elevatorSubsystem.getUpperMotors()); 
