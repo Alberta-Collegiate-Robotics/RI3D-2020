@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -34,6 +35,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Preferences;
 
 //import edu.wpi.first.wpilibj.Solenoid;
 
@@ -95,10 +97,19 @@ public class RobotContainer {
 
 	private final Command autoCommand;
 
+	private final Preferences preferences;
+
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
 	 */
 	public RobotContainer() {
+
+		// Start camera server
+		CameraServer.getInstance().startAutomaticCapture();
+
+		// Retrieve Preferences instance
+		this.preferences = Preferences.getInstance();
+
 		// Create motor objects
 		this.lbMotor = new WPI_TalonSRX(Constants.lbMotorPort);
 		this.lfMotor = new WPI_TalonSRX(Constants.lfMotorPort);
@@ -146,9 +157,6 @@ public class RobotContainer {
 		this.elevatorSubsystem = new ElevatorSubsystem(this.upperElevatorMotors, this.lowerElevatorMotors);
 
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
-
-		// Start camera server
-		CameraServer.getInstance().startAutomaticCapture();
 
 		// Setup autocommand
 		Command forward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0).withTimeout(Constants.autonomousForwardTime);
