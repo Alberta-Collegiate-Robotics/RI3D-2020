@@ -49,6 +49,9 @@ public class RobotContainer {
 	private final SpeedController rbMotor;
 	private final SpeedController rfMotor;
 
+	private final SpeedController leftDriveMotors;
+	private final SpeedController rightDriveMotors;
+
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 	private final SpeedController hopperMotor;
@@ -92,6 +95,9 @@ public class RobotContainer {
 		this.rbMotor = new WPI_TalonSRX(Constants.rbMotorPort);
 		this.rfMotor = new WPI_TalonSRX(Constants.rfMotorPort);
 
+		this.leftDriveMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
+		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
+
 		this.shooterMotor = new VictorSP(Constants.shooterMotorPort);
 		this.intakeMotor = new VictorSP(Constants.intakeMotorPort);
 
@@ -114,7 +120,7 @@ public class RobotContainer {
 		//this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
 		// Initalize subsystems and commands
-		this.driveTrainSubsystem = new DifferentialDriveTrain(this.lbMotor, this.lfMotor, this.rbMotor, this.rfMotor);
+		this.driveTrainSubsystem = new DifferentialDriveTrain(this.leftDriveMotors, this.rightDriveMotors);
 
 		this.shooterSubsystem = new MotorSubsystem(this.shooterMotor);
 		this.intakeSubsystem = new MotorSubsystem(this.intakeMotor);

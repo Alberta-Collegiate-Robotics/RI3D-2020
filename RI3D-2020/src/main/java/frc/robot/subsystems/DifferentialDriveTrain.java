@@ -15,13 +15,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DifferentialDriveTrain extends SubsystemBase {
 
-    private SpeedController lbMotor;
-    private SpeedController lfMotor;
-    private SpeedController rbMotor;
-    private SpeedController rfMotor;
-
-    private SpeedControllerGroup leftMotors;
-    private SpeedControllerGroup rightMotors;
+    private SpeedController left;
+    private SpeedController right;
 
     private DifferentialDrive drive;
 
@@ -30,25 +25,17 @@ public class DifferentialDriveTrain extends SubsystemBase {
      * Built off of DifferentialDrive
      * https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/drive/DifferentialDrive.html
      * 
-     * @param lbMotor SpeedController for left-back motor
-     * @param lfMotor SpeedController for left-front motor
-     * @param rbMotor SpeedController for right-back motor
-     * @param rfMotor SpeedController for right-front motor
+     * @param left SpeedController for left motors
+     * @param right SpeedController for right motors
      */
-    public DifferentialDriveTrain(SpeedController lbMotor, SpeedController lfMotor, SpeedController rbMotor, SpeedController rfMotor) {
+    public DifferentialDriveTrain(SpeedController left, SpeedController right) {
         
-        // Reference each motor (hypothetically for more advanced drive systems?)
-        this.lbMotor = lbMotor;
-        this.lfMotor = lfMotor;
-        this.rbMotor = rbMotor;
-        this.rfMotor = rfMotor;
-
-        // Combine motors into left/right groups
-        this.leftMotors = new SpeedControllerGroup(this.lfMotor, this.lbMotor);
-        this.rightMotors = new SpeedControllerGroup(this.rfMotor, this.rbMotor);
+        // Reference each motor section
+        this.left = left;
+        this.right = right;
 
         // Combine motor groups into differential drive
-        this.drive = new DifferentialDrive(this.leftMotors, this.rightMotors);
+        this.drive = new DifferentialDrive(this.left, this.right);
 
     }
 
@@ -98,8 +85,8 @@ public class DifferentialDriveTrain extends SubsystemBase {
      */
     public void stop() {
         // TODO DifferentialDrive has a .stopMotor method but there is little documentation, needs testing
-        this.leftMotors.set(0);
-        this.rightMotors.set(0);
+        this.left.set(0);
+        this.right.set(0);
         //this.drive.stopMotor();
     }
 
