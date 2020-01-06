@@ -124,8 +124,8 @@ public class RobotContainer {
 		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
 
 		// Shooter motors and group
-		this.shooterMotorA = new VictorSP(Constants.shooterMotorAPort);
-		this.shooterMotorB = new VictorSP(Constants.shooterMotorBPort);
+		this.shooterMotorA = new WPI_TalonSRX(Constants.shooterMotorAPort);
+		this.shooterMotorB = new WPI_TalonSRX(Constants.shooterMotorBPort);
 		this.shooterMotors = new SpeedControllerGroup(shooterMotorA, shooterMotorB);
 
 		// Intake and hopper motor
