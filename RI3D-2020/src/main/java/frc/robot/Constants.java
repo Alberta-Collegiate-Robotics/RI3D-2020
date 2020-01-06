@@ -25,6 +25,7 @@ public final class Constants {
 
     public static final int shooterButtonPort = joystickTriggerButtonPort;
     public static final int pistonButtonPort = joystickSideButtonPort;
+    public static final int intakeButtonPort = joystickSideButtonPort;
     public static final int controlPanelButtonPort = -1;
     public static final int toggleHopperButtonPort = -1;
     public static final int upperElevatorUpButtonPort = -1;
@@ -32,29 +33,30 @@ public final class Constants {
     public static final int lowerElevatorUpButtonPort = -1;
     public static final int lowerElevatorDownButtonPort = -1;
 
-    public static final int lbMotorPort = 0;
-    public static final int lfMotorPort = 1;
-    public static final int rbMotorPort = 2;
-    public static final int rfMotorPort = 3;
+    public static final int lbMotorPort = 10;
+    public static final int lfMotorPort = 11;
+    public static final int rbMotorPort = 12;
+    public static final int rfMotorPort = 13;
 
-    public static final int shooterMotorPort = 4;
-    public static final int intakeMotorPort = 5;
-    public static final int hopperMotorPort = 0;
+    public static final int shooterMotorPortA = 1;
+    public static final int shooterMotorPortB = 2;
 
-    public static final int upperElevatorLeftMotorPort = 1;
-    public static final int upperElevatorRightMotorPort = 2;
-    public static final int lowerElevatorLeftMotorPort = 3;
-    public static final int lowerElevatorRightMotorPort = 4;
+    public static final int intakeMotorPort = 0;
+    public static final int hopperMotorPort = 14;
+
+    public static final int upperElevatorLeftMotorPort = 15;
+    public static final int upperElevatorRightMotorPort = 16;
+    public static final int lowerElevatorLeftMotorPort = 17;
+    public static final int lowerElevatorRightMotorPort = 18;
 
     public static final int pistonSolenoidPortA = 0;
     public static final int pistonSolenoidPortB = 1;
 
     //public static final int controlPanelPort = 0;
 
-    public static final double shooterMotorSpeed = 1.0;
-    public static final double intakeMotorSpeed = 0.5;
-
-    public static final double hopperMotorSpeed = 0.5;
+    public static final double shooterMotorSpeed = -1.0;
+    public static final double intakeMotorSpeed = 0.3;
+    public static final double hopperMotorSpeed = 0.3;
 
     public static final double upperElevatorSpeed = 0.5;
     public static final double lowerElevatorSpeed = 0.5;
