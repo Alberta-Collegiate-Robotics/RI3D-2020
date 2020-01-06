@@ -9,8 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.ActivateMotor;
 import frc.robot.commands.ActivateMotorLambda;
-import frc.robot.commands.ToggleMotor;
-import frc.robot.commands.TogglePiston;
+import frc.robot.commands.ActivatePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
 import frc.robot.subsystems.DifferentialDriveTrain;
@@ -243,7 +242,8 @@ public class RobotContainer {
 		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, Constants.upperElevatorSpeed));
 		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, -Constants.upperElevatorSpeed));
 
-		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
+		this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1));
+		this.pistonButton.whenReleased(new ActivatePiston(pistonSubsystem, -1));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
