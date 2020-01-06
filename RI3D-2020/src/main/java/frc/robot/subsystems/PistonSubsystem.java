@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PistonSubsystem extends SubsystemBase {
@@ -15,9 +16,9 @@ public class PistonSubsystem extends SubsystemBase {
 	 * Creates a new ExampleSubsystem.
 	 */
 
-	private Solenoid solenoid;
+	private DoubleSolenoid solenoid;
 
-	public PistonSubsystem(Solenoid solenoid) {
+	public PistonSubsystem(DoubleSolenoid solenoid) {
 		// Reference solenoid
 		this.solenoid = solenoid;
 	}
@@ -31,8 +32,12 @@ public class PistonSubsystem extends SubsystemBase {
 	 * Wraps the internal solenoid .get method
 	 * @return The state of the internal solenoid, boolean
 	 */
-	public boolean getState() {
+	public DoubleSolenoid.Value getState() {
 		return solenoid.get();
+	}
+
+	public boolean getBooleanState() {
+		return this.solenoid.get() == Value.kForward;
 	}
 
 	/**
@@ -40,6 +45,13 @@ public class PistonSubsystem extends SubsystemBase {
 	 * @param state boolean passed to internal solenoid
 	 */
 	public void setState(boolean state) {
+		if(state) {
+			this.solenoid.set(Value.kForward);
+		} else {
+			this.solenoid.set(Value.kReverse);
+		}
+	}
+	public void setState(Value state) {
 		this.solenoid.set(state);
 	}
 }
