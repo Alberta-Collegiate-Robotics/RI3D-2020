@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -93,7 +94,9 @@ public class RobotContainer {
 	private final Button hopperButton;
 	private final Button hopperBurstButton;
 	
-	private final Button pistonButton;
+	//private final Button pistonButton;
+	private final Button pistonForwardButton;
+	private final Button pistonReverseButton;
 
 	private final Button upperElevatorUpButton;
 	private final Button upperElevatorDownButton;
@@ -191,7 +194,9 @@ public class RobotContainer {
 		this.hopperButton = new JoystickButton(this.mainController, Constants.hopperButtonPort);
 		this.hopperBurstButton = new JoystickButton(this.mainController, Constants.hopperBurstButtonPort);
 
-		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+		//this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+		this.pistonForwardButton = new POVButton(this.mainController, Constants.pistonForwardButtonPOVAngle);
+		this.pistonReverseButton = new POVButton(this.mainController, Constants.pistonReverseButtonPOVAngle);
 
 		this.upperElevatorUpButton = new JoystickButton(this.mainController, Constants.upperElevatorUpButtonPort);
 		this.upperElevatorDownButton = new JoystickButton(this.mainController, Constants.upperElevatorDownButtonPort);
@@ -245,8 +250,10 @@ public class RobotContainer {
 		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, Constants.upperElevatorSpeed));
 		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lowerElevatorSubsystem, -Constants.upperElevatorSpeed));
 
-		this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));
-		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
+		//this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));
+		this.pistonForwardButton.whenHeld(new ActivatePiston(pistonSubsystem, 1));
+		this.pistonReverseButton.whenHeld(new ActivatePiston(pistonSubsystem, -1));
+
 	}
 
 

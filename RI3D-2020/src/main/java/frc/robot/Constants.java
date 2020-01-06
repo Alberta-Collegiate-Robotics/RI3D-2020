@@ -30,6 +30,8 @@ public final class Constants {
     public static final int hopperBurstButtonPort = 3;
 
     public static final int pistonButtonPort = joystickSideButtonPort;
+    public static final int pistonForwardButtonPOVAngle = 0;
+    public static final int pistonReverseButtonPOVAngle = 180;
 
     public static final int controlPanelButtonPort = -1;
     public static final int upperElevatorUpButtonPort = -1;
