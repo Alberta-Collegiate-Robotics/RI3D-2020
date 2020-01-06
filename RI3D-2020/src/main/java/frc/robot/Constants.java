@@ -37,7 +37,8 @@ public final class Constants {
 
     public static final int pistonPort = -1;
 
-    public static final int pistonSolenoidPort = 0;
+    public static final int pistonSolenoidPortA = 0;
+    public static final int pistonSolenoidPortB = 0;
 
     //public static final int controlPanelPort = 0;
 

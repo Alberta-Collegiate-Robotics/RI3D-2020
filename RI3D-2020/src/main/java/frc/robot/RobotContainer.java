@@ -19,6 +19,7 @@ import frc.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -59,7 +60,7 @@ public class RobotContainer {
 	private final SpeedController can4, can5;
 	private final SpeedController pwm3, pwm4;
 
-	private final Solenoid piston;
+	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
 	// private final SpeedController elevatorUp;
@@ -110,7 +111,7 @@ public class RobotContainer {
 		pwm4 = new VictorSP(4);
 
 		// Create solenoid object
-		this.piston = new Solenoid(Constants.pistonSolenoidPort);
+		this.piston = new DoubleSolenoid(Constants.pistonSolenoidPortA, Constants.pistonSolenoidPortB);
 
 		everythingTest = new SpeedControllerGroup(shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
 
