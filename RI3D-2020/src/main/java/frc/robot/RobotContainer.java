@@ -224,22 +224,7 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 
-		// Link all motors to shooter button for testing
-		// Create activatemotor command, manually link duplicate subsystems
-		// ActivateMotor motorTest = new ActivateMotor(this.motorTestSubsystem, preferences.getDouble("motorTestSpeed", Constants.motorTestSpeed));
-		// motorTest.addRequirements(
-		// 	this.driveTrainSubsystem,
-		// 	this.shooterSubsystem, this.intakeSubsystem, this.hopperSubsystem, this.upperElevatorSubsystem, this.lowerElevatorSubsystem
-		// );
-		// // Create InstantCommand that schedules the motorTest command, but changes the speed first
-		// this.shooterButton.whenHeld(
-		// 	new InstantCommand(() -> {
-		// 		motorTest.setSpeed(preferences.getDouble("motorTestSpeed", Constants.motorTestSpeed));
-		// 		motorTest.schedule();
-		// 	}
-		// 	)
-		// );
-
+		// Shooter rawAxis is the joystick slider
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
