@@ -12,6 +12,7 @@ import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
 import frc.robot.subsystems.DifferentialDriveTrain;
+import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.PistonSubsystem;
 
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -38,7 +40,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	//private final ExampleCommand autoCommand;
+	private final ExampleCommand autoCommand;
 
 	private final SpeedController lbMotor;
 	private final SpeedController lfMotor;
@@ -48,6 +50,9 @@ public class RobotContainer {
 	private final SpeedController shooterMotor;
 	private final SpeedController intakeMotor;
 	private final SpeedController hopperMotor;
+
+	private final SpeedController can4, can5;
+	private final SpeedController pwm3, pwm4;
 
 	private final Solenoid piston;
 	//private final SpeedController controlPanelMotor;
@@ -66,10 +71,14 @@ public class RobotContainer {
 	// private final MotorSubsystem elevatorUpSubsystem;
 	// private final MotorSubsystem elevatorDownSubsystem;
 
+	private final ExampleSubsystem exampleSubsystem;
+
 	private final GenericHID mainController;
 	private final Button shooterButton;
 	private final Button pistonButton;
 	//private final Button controlPanelButton;
+
+	private final SpeedControllerGroup everythingTest;
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -86,8 +95,16 @@ public class RobotContainer {
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
+		can4 = new WPI_TalonSRX(4);
+		can5 = new WPI_TalonSRX(5);
+
+		pwm3 = new VictorSP(3);
+		pwm4 = new VictorSP(4);
+
 		// Create solenoid object
 		this.piston = new Solenoid(Constants.pistonSolenoidPort);
+
+		everythingTest = new SpeedControllerGroup(lbMotor, rbMotor, lfMotor, rfMotor, shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
 
 		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
 		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
@@ -105,7 +122,7 @@ public class RobotContainer {
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
-		//this.exampleSubsystem = new ExampleSubsystem();
+		this.exampleSubsystem = new ExampleSubsystem();
 
 		// Setup autocommand
 		Command driveForward = new ActivateArcadeDrive(this.driveTrainSubsystem, 1.0, 0);
@@ -139,8 +156,10 @@ public class RobotContainer {
 	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-		this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
+		//this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
 		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
+
+		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), 0.25));
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 
