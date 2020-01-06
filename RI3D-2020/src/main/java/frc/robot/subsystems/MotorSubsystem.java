@@ -34,4 +34,8 @@ public class MotorSubsystem extends SubsystemBase {
 	public void setSpeed(double speed) {
 		this.motor.set(speed);
 	}
+
+	public double getMotorSpeed() {
+		return this.motor.get();
+	}
 }

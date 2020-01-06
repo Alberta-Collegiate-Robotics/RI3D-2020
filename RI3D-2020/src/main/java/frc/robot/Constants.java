@@ -25,6 +25,11 @@ public final class Constants {
     public static final int shooterButtonPort = joystickTriggerButtonPort;
     public static final int pistonButtonPort = joystickSideButtonPort;
     public static final int controlPanelButtonPort = -1;
+    public static final int toggleHopperButtonPort = -1;
+    public static final int upperElevatorUpButtonPort = -1;
+    public static final int upperElevatorDownButtonPort = -1;
+    public static final int lowerElevatorUpButtonPort = -1;
+    public static final int lowerElevatorDownButtonPort = -1;
 
     public static final int lbMotorPort = 0;
     public static final int lfMotorPort = 1;
@@ -51,6 +56,9 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.5;
 
     public static final double hopperMotorSpeed = 0.5;
+
+    public static final double upperElevatorSpeed = 0.5;
+    public static final double lowerElevatorSpeed = 0.5;
 
     //public static final double controlPanelSpeed = 1.0;
 }

@@ -9,6 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.ActivateMotor;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ToggleMotor;
 import frc.robot.commands.TogglePiston;
 import frc.robot.commands.ActivateArcadeDrive;
 
@@ -64,13 +65,12 @@ public class RobotContainer {
 	private final DoubleSolenoid piston;
 	//private final SpeedController controlPanelMotor;
 
-	private final SpeedController elevatorUpLeft;
-	private final SpeedController elevatorUpRight;
-	private final SpeedController elevatorDownLeft;
-	private final SpeedController elevatorDownRight;
+	private final SpeedController upperElevatorLeft;
+	private final SpeedController upperElevatorRight;
+	private final SpeedController lowerElevatorLeft;
+	private final SpeedController lowerElevatorRight;
 
-	private final SpeedControllerGroup elevatorUpMotors;
-	private final SpeedControllerGroup elevatorDownMotors;
+	private final SpeedControllerGroup upperElevator, lowerElevator;
 
 	private final DifferentialDriveTrain driveTrainSubsystem;
 	private final MotorSubsystem shooterSubsystem;
@@ -87,6 +87,13 @@ public class RobotContainer {
 	private final GenericHID mainController;
 	private final Button shooterButton;
 	private final Button pistonButton;
+
+	private final Button upperElevatorUpButton;
+	private final Button upperElevatorDownButton;
+	private final Button lowerElevatorUpButton;
+	private final Button lowerElevatorDownButton;
+
+	private final Button toggleHopperButton;
 	//private final Button controlPanelButton;
 
 	private final SpeedControllerGroup everythingTest;
@@ -109,13 +116,13 @@ public class RobotContainer {
 
 		this.hopperMotor = new VictorSP(Constants.hopperMotorPort);
 
-		this.elevatorDownLeft = new VictorSP(Constants.elevatorDownLeftPort);
-		this.elevatorDownRight = new VictorSP(Constants.elevatorDownRightPort);
-		this.elevatorUpLeft = new VictorSP(Constants.elevatorUpLeftPort);
-		this.elevatorUpRight = new VictorSP(Constants.elevatorUpRightPort);
+		this.upperElevatorLeft = new VictorSP(Constants.elevatorUpLeftPort);
+		this.upperElevatorRight = new VictorSP(Constants.elevatorUpRightPort);
+		this.lowerElevatorLeft = new VictorSP(Constants.elevatorDownLeftPort);
+		this.lowerElevatorRight = new VictorSP(Constants.elevatorDownRightPort);
 
-		this.elevatorDownMotors = new SpeedControllerGroup(elevatorDownLeft, elevatorDownRight);
-		this.elevatorUpMotors = new SpeedControllerGroup(elevatorUpLeft, elevatorUpRight);
+		this.upperElevator = new SpeedControllerGroup(upperElevatorLeft, upperElevatorRight);
+		this.lowerElevator = new SpeedControllerGroup(lowerElevatorLeft, lowerElevatorRight);
 
 		can4 = new WPI_TalonSRX(4);
 		can5 = new WPI_TalonSRX(5);
@@ -127,9 +134,6 @@ public class RobotContainer {
 		this.piston = new DoubleSolenoid(Constants.pistonSolenoidPortA, Constants.pistonSolenoidPortB);
 
 		everythingTest = new SpeedControllerGroup(shooterMotor, intakeMotor, hopperMotor, can4, can5, pwm3, pwm4);
-
-		// this.elevatorUp = new WPI_TalonSRX(Constants.shooterMotorPort);
-		// this.elevatorDown = new WPI_TalonSRX(Constants.intakeMotorPort);
 
 		//this.controlPanelMotor = new Spark(Constants.controlPanelPort);
 
@@ -143,7 +147,7 @@ public class RobotContainer {
 
 		this.pistonSubsystem = new PistonSubsystem(this.piston);
 
-		this.elevatorSubsystem = new ElevatorSubsystem(elevatorDownMotors, elevatorUpMotors);
+		this.elevatorSubsystem = new ElevatorSubsystem(upperElevator, lowerElevator);
 
 		//this.controlPanelSubsystem = new MotorSubsystem(this.controlPanelMotor);
 
@@ -160,13 +164,20 @@ public class RobotContainer {
 		// Define button objects
 		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
 		this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+
+		this.upperElevatorUpButton = new JoystickButton(this.mainController, Constants.upperElevatorUpButtonPort);
+		this.upperElevatorDownButton = new JoystickButton(this.mainController, Constants.upperElevatorDownButtonPort);
+		this.lowerElevatorUpButton = new JoystickButton(this.mainController, Constants.lowerElevatorUpButtonPort);
+		this.lowerElevatorDownButton = new JoystickButton(this.mainController, Constants.lowerElevatorDownButtonPort);
+
+		this.toggleHopperButton = new JoystickButton(this.mainController, Constants.toggleHopperButtonPort);
+
 		//this.controlPanelButton = new JoystickButton(this.mainController, Constants.controlPanelButtonPort);
 
 		// Create/define default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getY(), this.mainController.getX()), this.driveTrainSubsystem));
 		// Set the intake and hopper to be constantly running
-		//this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
-		//this.hopperSubsystem.setDefaultCommand(new ActivateMotor(this.hopperSubsystem, Constants.hopperMotorSpeed));
+		this.intakeSubsystem.setDefaultCommand(new ActivateMotor(this.intakeSubsystem, Constants.intakeMotorSpeed));
 
 		// TODO attach command to height subsystem
 
@@ -185,6 +196,18 @@ public class RobotContainer {
 		this.pistonButton.whenPressed(new TogglePiston(pistonSubsystem));
 
 		this.shooterButton.whenHeld(new ActivateMotor(new MotorSubsystem(everythingTest), 0.5));
+
+		//Yes, this is ugly. (Creating motor subsystem from elevator subsystem).
+		MotorSubsystem upper = new MotorSubsystem(elevatorSubsystem.getUpperMotors()); 
+		MotorSubsystem lower = new MotorSubsystem(elevatorSubsystem.getLowerMotors()); 
+
+		this.upperElevatorUpButton.whenHeld(new ActivateMotor(upper, Constants.upperElevatorSpeed));
+		this.upperElevatorDownButton.whenHeld(new ActivateMotor(upper, -Constants.upperElevatorSpeed));
+		this.lowerElevatorUpButton.whenHeld(new ActivateMotor(lower, Constants.upperElevatorSpeed));
+		this.lowerElevatorDownButton.whenHeld(new ActivateMotor(lower, -Constants.upperElevatorSpeed));
+
+		this.toggleHopperButton.whenPressed(new ToggleMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+
 		//this.controlPanelButton.whenPressed(new ActivateMotor(controlPanelSubsystem, Constants.controlPanelSpeed));
 	}
 

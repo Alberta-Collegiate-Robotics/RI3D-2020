@@ -43,4 +43,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setLowerSpeed(double speed) {
     this.lowerMotors.set(speed);
   }
+
+  public SpeedController getUpperMotors() {
+    return upperMotors;
+  }
+
+  public SpeedController getLowerMotors() {
+    return lowerMotors;
+  }
 }
