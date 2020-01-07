@@ -11,16 +11,10 @@ Link for WPILIB Docs: https://docs.wpilib.org/en/latest/index.html
 Password for Encrypted Game Manual: R!$E2geTHeR#2020
 
 Designs:
-Robot A (No-Climb):
-- Two motors shooting system.
-- One motor Feeder system.
-- One motor Hooper.
-- 4 Motors base drive
-- Shooting Auto?
-
-
-Robot B (Climb):
-- Four motors elevator system
-- Control Panel Spinning System
-- 4 Motors base drive.
-- Drive Straight for Auto?
+Final Robot Design:
+ - Two motor shooting flywheel
+ - One motor hopper system
+ - One motor intake system
+ - Solenoid piston system
+ - Two motor elevator system
+ - Four motor drive system
