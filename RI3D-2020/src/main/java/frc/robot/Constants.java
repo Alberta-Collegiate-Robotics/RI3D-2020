@@ -56,7 +56,7 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.35;
     public static final double hopperMotorSpeed = -0.3;
 
-    public static final double elevatorSpeed = 0.25;
+    public static final double elevatorSpeed = 0.30;
 
     public static final double motorTestSpeed = 0.5;
 

@@ -122,6 +122,8 @@ public class RobotContainer {
 		this.rfMotor = new WPI_TalonSRX(Constants.rfMotorPort);
 		this.leftDriveMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
 		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
+		// Invert some motors
+		this.rightDriveMotors.setInverted(true);
 
 		// Shooter motors and group
 		this.shooterMotorA = new WPI_TalonSRX(Constants.shooterMotorAPort);
@@ -205,8 +207,8 @@ public class RobotContainer {
 		// Bind shooter, intake, hopper buttons using Constants speeds
 		// Shooter rawAxis is the joystick slider
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
-		this.intakeButton.toggleWhenPressed(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
-		this.hopperButton.toggleWhenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+		this.intakeButton.whenHeld(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
+		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
 
 		// Bind elevator buttons
