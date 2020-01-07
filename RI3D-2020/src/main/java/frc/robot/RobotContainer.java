@@ -90,9 +90,9 @@ public class RobotContainer {
 	private final Button hopperButton;
 	private final Button hopperBurstButton;
 	
-	//private final Button pistonButton;
-	private final Button pistonForwardButton;
-	private final Button pistonReverseButton;
+	private final Button pistonButton;
+	//private final Button pistonForwardButton;
+	//private final Button pistonReverseButton;
 
 	private final Button elevatorUpButton;
 	private final Button elevatorDownButton;
@@ -123,7 +123,8 @@ public class RobotContainer {
 		this.leftDriveMotors = new SpeedControllerGroup(this.lbMotor, this.lfMotor);
 		this.rightDriveMotors = new SpeedControllerGroup(this.rbMotor, this.rfMotor);
 		// Invert some motors
-		this.rightDriveMotors.setInverted(true);
+		//this.rightDriveMotors.setInverted(true);
+		//this.leftDriveMotors.setInverted(true);
 
 		// Shooter motors and group
 		this.shooterMotorA = new WPI_TalonSRX(Constants.shooterMotorAPort);
@@ -172,21 +173,21 @@ public class RobotContainer {
 
 		// Define button objects
 		// Shooter, intake, hopper regular buttons
-		this.shooterButton = new JoystickButton(this.mainController, Constants.shooterButtonPort);
-		this.intakeButton = new JoystickButton(this.mainController, Constants.intakeButtonPort);
-		this.hopperButton = new JoystickButton(this.mainController, Constants.hopperButtonPort);
+		this.shooterButton = new JoystickButton(this.secondaryController, Constants.shooterButtonPort);
+		this.intakeButton = new JoystickButton(this.secondaryController, Constants.intakeButtonPort);
+		this.hopperButton = new JoystickButton(this.secondaryController, Constants.hopperButtonPort);
 		// Different button for bursting the hopper
 		this.hopperBurstButton = new JoystickButton(this.mainController, Constants.hopperBurstButtonPort);
 
 		// Elevator buttons
-		this.elevatorUpButton = new JoystickButton(this.mainController, Constants.elevatorUpButtonPort);
-		this.elevatorDownButton = new JoystickButton(this.mainController, Constants.elevatorDownButtonPort);
+		this.elevatorUpButton = new POVButton(this.mainController, Constants.elevatorUpButtonPort);
+		this.elevatorDownButton = new POVButton(this.mainController, Constants.elevatorDownButtonPort);
 
-		// Piston buttons
-		//this.pistonButton = new JoystickButton(this.mainController, Constants.pistonButtonPort);
+		// Piston button
+		this.pistonButton = new JoystickButton(this.secondaryController, Constants.pistonButtonPort);
 		// POV buttons
-		this.pistonForwardButton = new POVButton(this.mainController, Constants.pistonForwardButtonPOVAngle);
-		this.pistonReverseButton = new POVButton(this.mainController, Constants.pistonReverseButtonPOVAngle);
+		//this.pistonForwardButton = new POVButton(this.mainController, Constants.pistonForwardButtonPOVAngle);
+		//this.pistonReverseButton = new POVButton(this.mainController, Constants.pistonReverseButtonPOVAngle);
 
 		// Create default drive command
 		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(() -> this.driveTrainSubsystem.arcadeDrive(this.mainController.getY(), this.mainController.getX()), this.driveTrainSubsystem));
@@ -209,6 +210,9 @@ public class RobotContainer {
 		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 		this.intakeButton.whenHeld(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
+		
+		this.hopperButton.whenHeld(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
+		
 		this.hopperBurstButton.whenPressed(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed).withTimeout(Constants.hopperBurstTime));
 
 		// Bind elevator buttons
@@ -217,8 +221,12 @@ public class RobotContainer {
 
 		// Bind piston buttons
 		//this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1)).whenReleased(new ActivatePiston(pistonSubsystem, -1));
-		this.pistonForwardButton.whenHeld(new ActivatePiston(pistonSubsystem, 1));
-		this.pistonReverseButton.whenHeld(new ActivatePiston(pistonSubsystem, -1));
+		//this.pistonForwardButton.whenHeld(new ActivatePiston(pistonSubsystem, 1));
+		//this.pistonReverseButton.whenHeld(new ActivatePiston(pistonSubsystem, -1));
+		this.pistonButton.whenPressed(new ActivatePiston(pistonSubsystem, 1).withTimeout(Constants.pistonTime));
+		this.pistonButton.whenReleased(new ActivatePiston(pistonSubsystem, -1).withTimeout(Constants.pistonTime));
+
+		//this.pistonButton.whenHeld(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 
 	}
 

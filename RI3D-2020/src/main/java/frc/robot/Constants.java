@@ -23,22 +23,22 @@ public final class Constants {
     public static final int joystickTriggerButtonPort = 1;
     public static final int joystickSideButtonPort = 2;
 
-    public static final int shooterButtonPort = 3;
-    public static final int intakeButtonPort = 4;
-    public static final int hopperButtonPort = 5;
+    public static final int shooterButtonPort = 4;
+    public static final int intakeButtonPort = 3;
+    public static final int hopperButtonPort = 1;
     public static final int hopperBurstButtonPort = 6;
     
-    public static final int elevatorUpButtonPort = 12;
-    public static final int elevatorDownButtonPort = 11;
+    public static final int elevatorUpButtonPort = 0;
+    public static final int elevatorDownButtonPort = 180;
 
-    public static final int pistonButtonPort = joystickSideButtonPort;
+    public static final int pistonButtonPort = 2;
     public static final int pistonForwardButtonPOVAngle = 0;
     public static final int pistonReverseButtonPOVAngle = 180;
 
-    public static final int lbMotorPort = 2;
-    public static final int lfMotorPort = 3;
-    public static final int rbMotorPort = 4;
-    public static final int rfMotorPort = 5;
+    public static final int lbMotorPort = 4;
+    public static final int lfMotorPort = 5;
+    public static final int rbMotorPort = 2;
+    public static final int rfMotorPort = 3;
 
     public static final int shooterMotorAPort = 0;
     public static final int shooterMotorBPort = 1;
@@ -53,10 +53,10 @@ public final class Constants {
     public static final int pistonSolenoidPortB = 1;
 
     public static final double shooterMotorSpeed = 1.0;
-    public static final double intakeMotorSpeed = 0.35;
-    public static final double hopperMotorSpeed = -0.3;
+    public static final double intakeMotorSpeed = 0.30;
+    public static final double hopperMotorSpeed = -0.5;
 
-    public static final double elevatorSpeed = 0.30;
+    public static final double elevatorSpeed = 1;
 
     public static final double motorTestSpeed = 0.5;
 
@@ -67,5 +67,7 @@ public final class Constants {
     public static final double autonomousShootTime = 3.0;
 
     public static final double hopperBurstTime = 0.5;
+
+    public static final double pistonTime = 0.3;
 
 }
