@@ -190,12 +190,12 @@ public class RobotContainer {
 		//this.pistonReverseButton = new POVButton(this.mainController, Constants.pistonReverseButtonPOVAngle);
 
 		// Create default drive command
-		// this.driveTrainSubsystem.setDefaultCommand(new RunCommand(
-		// 	() -> this.driveTrainSubsystem.arcadeDrive(
-		// 		this.mainController.getY()*Constants.driveSpeed, this.mainController.getX()*Constants.driveSpeed
-		// 	),
-		// 	this.driveTrainSubsystem
-		// ));
+		this.driveTrainSubsystem.setDefaultCommand(new RunCommand(
+			() -> this.driveTrainSubsystem.arcadeDrive(
+				this.mainController.getY()*Constants.driveSpeed, this.mainController.getX()*Constants.driveSpeed
+			),
+			this.driveTrainSubsystem
+		));
 
 		// Configure the button bindings
 		this.configureButtonBindings();
@@ -212,8 +212,7 @@ public class RobotContainer {
 
 		// Bind shooter, intake, hopper buttons using Constants speeds
 		// Shooter rawAxis is the joystick slider
-		//this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
-		this.shooterButton.whenHeld(new ActivateMotor(shooterSubsystem, Constants.shooterMotorSpeed));
+		this.shooterButton.toggleWhenPressed(new ActivateMotorLambda(shooterSubsystem, () -> this.mainController.getRawAxis(3)));
 		this.intakeButton.whenHeld(new ActivateMotor(intakeSubsystem, Constants.intakeMotorSpeed));
 		this.hopperButton.whenHeld(new ActivateMotor(hopperSubsystem, Constants.hopperMotorSpeed));
 		
